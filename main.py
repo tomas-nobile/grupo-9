@@ -139,6 +139,18 @@ def opcion_modificar_producto(inventario: Inventario) -> None:
     mostrar_productos([actualizado])
 
 
+def opcion_eliminar_producto(inventario: Inventario) -> None:
+    """Elimina un producto, previa confirmación."""
+    producto = inventario.obtener_o_error(pedir_texto("Código: "))
+    mostrar_productos([producto])
+    if not confirmar(f"¿Eliminar {producto.nombre}?"):
+        print("No se eliminó nada.")
+        return
+    inventario.eliminar(producto.codigo)
+    persistencia.guardar_productos(inventario.productos)
+    print(f"Producto {producto.codigo} eliminado.")
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -152,6 +164,7 @@ OPCIONES = [
     ("3", "Filtrar por categoría", opcion_filtrar_categoria),
     ("4", "Agregar producto", opcion_agregar_producto),
     ("5", "Modificar producto", opcion_modificar_producto),
+    ("6", "Eliminar producto", opcion_eliminar_producto),
     ("0", "Salir", opcion_salir),
 ]
 

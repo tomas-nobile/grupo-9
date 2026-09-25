@@ -94,3 +94,16 @@ def test_modificar_codigo_inexistente_lanza():
 def test_modificar_stock_lanza():
     with pytest.raises(ErrorInventario):
         _inventario().modificar("A001", "stock", 100)
+
+
+def test_eliminar_existente():
+    inventario = _inventario()
+    eliminado = inventario.eliminar("b002")
+    assert eliminado.codigo == "B002"
+    assert len(inventario.listar()) == 2
+    assert inventario.obtener("B002") is None
+
+
+def test_eliminar_inexistente_lanza():
+    with pytest.raises(ErrorInventario):
+        _inventario().eliminar("Z999")

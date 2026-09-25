@@ -37,7 +37,7 @@ Como usuario, quiero cambiar precio, stock mínimo, nombre o categoría de un pr
 
 **Verificar:** cambiar el precio de un producto y verlo en `1`.
 
-### [ ] F02.4 · Baja de producto
+### [x] F02.4 · Baja de producto
 Como usuario, quiero eliminar un producto que ya no vendo, previa confirmación.
 
 - `Inventario.eliminar(self, codigo: str) -> Producto`: quita y devuelve el producto; inexistente → `ErrorInventario`.

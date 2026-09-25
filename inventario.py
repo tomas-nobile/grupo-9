@@ -94,3 +94,9 @@ class Inventario:
         posicion = self.productos.index(actual)
         self.productos[posicion] = nuevo
         return nuevo
+
+    def eliminar(self, codigo: str) -> Producto:
+        """Quita un producto del inventario y lo devuelve. Lanza ErrorInventario si no existe."""
+        producto = self.obtener_o_error(codigo)
+        self.productos.remove(producto)
+        return producto
