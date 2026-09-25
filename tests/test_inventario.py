@@ -1,3 +1,5 @@
+import datetime
+
 import pytest
 
 from inventario import Inventario
@@ -107,3 +109,31 @@ def test_eliminar_existente():
 def test_eliminar_inexistente_lanza():
     with pytest.raises(ErrorInventario):
         _inventario().eliminar("Z999")
+
+
+# --- Movimientos ---
+
+def test_entrada_suma_stock_y_registra_movimiento():
+    inventario = _inventario()
+    movimiento = inventario.registrar_movimiento("A001", "entrada", 10, fecha="2026-09-25")
+    assert inventario.obtener("A001").stock == 16
+    assert inventario.movimientos == [movimiento]
+    assert movimiento.fecha == "2026-09-25"
+
+
+def test_entrada_cantidad_cero_lanza_y_no_cambia():
+    inventario = _inventario()
+    with pytest.raises(ErrorInventario):
+        inventario.registrar_movimiento("A001", "entrada", 0)
+    assert inventario.obtener("A001").stock == 6
+    assert inventario.movimientos == []
+
+
+def test_movimiento_codigo_inexistente_lanza():
+    with pytest.raises(ErrorInventario):
+        _inventario().registrar_movimiento("Z999", "entrada", 5)
+
+
+def test_movimiento_sin_fecha_usa_hoy():
+    movimiento = _inventario().registrar_movimiento("A001", "entrada", 1)
+    assert movimiento.fecha == datetime.date.today().isoformat()

@@ -7,7 +7,7 @@ import sys
 
 import persistencia
 from inventario import CAMPOS_MODIFICABLES, Inventario
-from modelos import ErrorInventario, Producto
+from modelos import TIPO_ENTRADA, TIPO_SALIDA, ErrorInventario, Producto
 
 
 # ---------- Entrada: funciones que piden datos por teclado ----------
@@ -151,6 +151,23 @@ def opcion_eliminar_producto(inventario: Inventario) -> None:
     print(f"Producto {producto.codigo} eliminado.")
 
 
+def registrar_y_guardar(inventario: Inventario, tipo: str) -> Producto:
+    """Pide código y cantidad, registra el movimiento, lo guarda y devuelve el producto."""
+    producto = inventario.obtener_o_error(pedir_texto("Código: "))
+    print(f"{producto.nombre}: stock actual {producto.stock}")
+    cantidad = pedir_entero(f"Cantidad de {tipo}: ", minimo=1)
+    inventario.registrar_movimiento(producto.codigo, tipo, cantidad)
+    persistencia.guardar_productos(inventario.productos)
+    persistencia.agregar_movimiento(inventario.movimientos[-1])
+    print(f"Listo. Stock de {producto.nombre}: {producto.stock}")
+    return producto
+
+
+def opcion_registrar_entrada(inventario: Inventario) -> None:
+    """Registra que llegó mercadería."""
+    registrar_y_guardar(inventario, TIPO_ENTRADA)
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -165,6 +182,7 @@ OPCIONES = [
     ("4", "Agregar producto", opcion_agregar_producto),
     ("5", "Modificar producto", opcion_modificar_producto),
     ("6", "Eliminar producto", opcion_eliminar_producto),
+    ("7", "Registrar entrada de stock", opcion_registrar_entrada),
     ("0", "Salir", opcion_salir),
 ]
 

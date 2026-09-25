@@ -3,7 +3,9 @@
 Toda regla de negocio vive acá (búsquedas, altas, movimientos de stock, alertas).
 No lee ni escribe archivos: eso lo hace persistencia.py.
 """
-from modelos import ErrorInventario, Movimiento, Producto, producto_desde_dict
+import datetime
+
+from modelos import TIPO_SALIDA, ErrorInventario, Movimiento, Producto, producto_desde_dict
 
 CAMPOS_MODIFICABLES = ("nombre", "categoria", "precio", "stock_minimo")
 
@@ -100,3 +102,19 @@ class Inventario:
         producto = self.obtener_o_error(codigo)
         self.productos.remove(producto)
         return producto
+
+    # ---------- Movimientos: la única forma de cambiar el stock ----------
+
+    def registrar_movimiento(self, codigo: str, tipo: str, cantidad: int,
+                             fecha: str | None = None) -> Movimiento:
+        """Registra una entrada o salida, actualiza el stock y devuelve el movimiento creado."""
+        producto = self.obtener_o_error(codigo)
+        if fecha is None:
+            fecha = datetime.date.today().isoformat()
+        movimiento = Movimiento(fecha, producto.codigo, tipo, cantidad)  # valida tipo, cantidad y fecha
+        if movimiento.tipo == TIPO_SALIDA:
+            producto.stock = producto.stock - movimiento.cantidad
+        else:
+            producto.stock = producto.stock + movimiento.cantidad
+        self.movimientos.append(movimiento)
+        return movimiento

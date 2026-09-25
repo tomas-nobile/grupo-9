@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F03.1 · Registrar entrada
+### [x] F03.1 · Registrar entrada
 Como usuario, quiero registrar que llegó mercadería, para que el stock suba y quede en el historial.
 
 - `Inventario.registrar_movimiento(self, codigo: str, tipo: str, cantidad: int, fecha: str | None = None) -> Movimiento`: `fecha` por defecto hoy (`datetime.date.today().isoformat()`). Busca el producto (inexistente → `ErrorInventario`), crea el `Movimiento` (que valida tipo y cantidad), aplica el cambio a `producto.stock`, lo agrega a `self.movimientos` y lo devuelve. Todo valida antes de tocar nada.
