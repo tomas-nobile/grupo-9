@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F01.1 · Modelos, persistencia de productos y menú
+### [x] F01.1 · Modelos, persistencia de productos y menú
 Como usuario, quiero correr `python main.py` y ver un menú con mis productos, para empezar a usar la app sin configurar nada.
 
 - `requirements.txt`: `pandas`, `matplotlib`, `pytest`, `jupyter`, versiones fijadas con `==` a las que se instalen en el venv.
