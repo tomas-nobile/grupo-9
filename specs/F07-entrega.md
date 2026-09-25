@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F07.1 · README final y guía completa
+### [x] F07.1 · README final y guía completa
 Como docente, quiero abrir el README y saber qué hace la app, cómo correrla y por qué se tomó cada decisión; y si quiero entender el código, que la guía me lleve de la mano.
 
 - `README.md`, secciones en este orden: Objetivo (3 líneas + captura del menú o del gráfico), Instalación (`python -m venv .venv`, activar en Windows y Linux, `pip install -r requirements.txt`), Ejecución (`python main.py`, `pytest -q`, abrir la notebook), Estructura de archivos (tabla con los 6 módulos y su capa), Datos (formato de `productos.json` y `movimientos.csv`), Fuente externa (qué API, qué dato se usa, qué pasa sin internet), Alertas e indicadores (la regla de reposición y los tres indicadores, en palabras), Decisiones principales (5–8 bullets tomados de `docs/decisions.md`, incluida la de POO), Uso de IA (herramienta, modo de trabajo, link a `docs/registro_prompts.md`), Cómo se probó (tests + casos manuales con entrada y resultado esperado), Cómo entender el código (link a `docs/guia.md`), Limitaciones.

@@ -74,6 +74,7 @@ class Producto:
         return self.stock * self.precio
 
     def __repr__(self) -> str:
+        """Texto corto para ver el objeto al depurar."""
         return f"Producto({self.codigo}, {self.nombre}, stock={self.stock})"
 
 
@@ -116,6 +117,7 @@ class Movimiento:
         return {"fecha": self.fecha, "codigo": self.codigo, "tipo": self.tipo, "cantidad": self.cantidad}
 
     def __repr__(self) -> str:
+        """Texto corto para ver el objeto al depurar."""
         return f"Movimiento({self.fecha}, {self.codigo}, {self.tipo}, {self.cantidad})"
 
 
