@@ -17,7 +17,7 @@ Como usuario, quiero buscar un producto por código o parte del nombre y filtrar
 
 **Verificar:** `python main.py`, opción `2` con "yer" encuentra la yerba.
 
-### [ ] F02.2 · Alta con validación
+### [x] F02.2 · Alta con validación
 Como usuario, quiero agregar un producto nuevo y que la app me avise si cargo algo mal, para no ensuciar el inventario.
 
 - `Inventario.agregar(self, producto: Producto) -> None`: lanza `ErrorInventario` si el código ya existe. La validación de campos ya la hace `Producto.__init__`.

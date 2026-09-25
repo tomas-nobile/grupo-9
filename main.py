@@ -104,6 +104,24 @@ def opcion_filtrar_categoria(inventario: Inventario) -> None:
     mostrar_productos(inventario.filtrar_por_categoria(categoria))
 
 
+def opcion_agregar_producto(inventario: Inventario) -> None:
+    """Da de alta un producto nuevo y lo guarda."""
+    codigo = pedir_texto("Código: ")
+    if inventario.obtener(codigo) is not None:
+        raise ErrorInventario(f"Ya existe un producto con código {codigo.upper()}.")
+    producto = Producto(
+        codigo=codigo,
+        nombre=pedir_texto("Nombre: "),
+        categoria=pedir_texto("Categoría: "),
+        precio=pedir_decimal("Precio: "),
+        stock=pedir_entero("Stock inicial: "),
+        stock_minimo=pedir_entero("Stock mínimo: "),
+    )
+    inventario.agregar(producto)
+    persistencia.guardar_productos(inventario.productos)
+    print(f"Producto {producto.codigo} agregado.")
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -115,6 +133,7 @@ OPCIONES = [
     ("1", "Listar productos", opcion_listar_productos),
     ("2", "Buscar producto", opcion_buscar),
     ("3", "Filtrar por categoría", opcion_filtrar_categoria),
+    ("4", "Agregar producto", opcion_agregar_producto),
     ("0", "Salir", opcion_salir),
 ]
 

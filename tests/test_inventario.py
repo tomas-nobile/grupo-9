@@ -1,5 +1,7 @@
+import pytest
+
 from inventario import Inventario
-from modelos import Producto
+from modelos import ErrorInventario, Producto
 
 
 def _inventario() -> Inventario:
@@ -50,3 +52,21 @@ def test_filtrar_por_categoria():
 
 def test_filtrar_categoria_inexistente_devuelve_vacio():
     assert _inventario().filtrar_por_categoria("ferreteria") == []
+
+
+def test_agregar_valido_aumenta_la_lista():
+    inventario = _inventario()
+    inventario.agregar(Producto("C001", "Café", "almacen", 5000.0, 3, 2))
+    assert len(inventario.listar()) == 4
+
+
+def test_agregar_codigo_repetido_lanza_y_no_agrega():
+    inventario = _inventario()
+    with pytest.raises(ErrorInventario):
+        inventario.agregar(Producto("a001", "Otra yerba", "almacen", 1.0, 1, 1))
+    assert len(inventario.listar()) == 3
+
+
+def test_obtener_o_error_inexistente_lanza():
+    with pytest.raises(ErrorInventario):
+        _inventario().obtener_o_error("Z999")

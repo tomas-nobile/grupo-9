@@ -3,7 +3,7 @@
 Toda regla de negocio vive acá (búsquedas, altas, movimientos de stock, alertas).
 No lee ni escribe archivos: eso lo hace persistencia.py.
 """
-from modelos import Movimiento, Producto
+from modelos import ErrorInventario, Movimiento, Producto
 
 
 def _codigo_de(producto: Producto) -> str:
@@ -59,3 +59,18 @@ class Inventario:
             if producto.categoria == categoria:
                 filtrados.append(producto)
         return filtrados
+
+    # ---------- Cambios: validan todo antes de modificar ----------
+
+    def obtener_o_error(self, codigo: str) -> Producto:
+        """Devuelve el producto con ese código, o lanza ErrorInventario si no existe."""
+        producto = self.obtener(codigo)
+        if producto is None:
+            raise ErrorInventario(f"No existe un producto con código {codigo.strip().upper()}.")
+        return producto
+
+    def agregar(self, producto: Producto) -> None:
+        """Agrega un producto nuevo. Lanza ErrorInventario si el código ya existe."""
+        if self.obtener(producto.codigo) is not None:
+            raise ErrorInventario(f"Ya existe un producto con código {producto.codigo}.")
+        self.productos.append(producto)
