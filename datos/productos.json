@@ -118,5 +118,13 @@
     "precio": 600.0,
     "stock": 50,
     "stock_minimo": 15
+  },
+  {
+    "codigo": "L004",
+    "nombre": "Esponja de cocina",
+    "categoria": "limpieza",
+    "precio": 700.0,
+    "stock": 12,
+    "stock_minimo": 4
   }
 ]

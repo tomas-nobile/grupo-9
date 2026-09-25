@@ -6,6 +6,7 @@ Las reglas de negocio están en inventario.py y modelos.py.
 import os
 import sys
 
+import analisis
 import persistencia
 from inventario import CAMPOS_MODIFICABLES, Inventario
 from modelos import TIPO_ENTRADA, TIPO_SALIDA, ErrorInventario, Movimiento, Producto
@@ -230,6 +231,23 @@ def opcion_exportar_orden(inventario: Inventario) -> None:
     print(f"Orden de compra con {cantidad} productos guardada en {os.path.relpath(persistencia.RUTA_ORDEN_COMPRA)}")
 
 
+def opcion_ver_indicadores(inventario: Inventario) -> None:
+    """Muestra los indicadores calculados con pandas."""
+    dias = analisis.DIAS_ANALISIS
+    print()
+    print(f"1) VALOR DEL INVENTARIO: $ {analisis.valor_total_inventario(inventario):,.2f}")
+    print(analisis.tabla_como_texto(analisis.analizar_valor_inventario(inventario)))
+    print()
+    print(f"2) DÍAS DE COBERTURA (consumo de los últimos {dias} días, los 10 más urgentes)")
+    print(analisis.tabla_como_texto(analisis.analizar_cobertura(inventario).head(10)))
+    print()
+    print(f"3) MÁS VENDIDOS (últimos {dias} días)")
+    print(analisis.tabla_como_texto(analisis.analizar_mas_vendidos(inventario)))
+    print()
+    print(f"Extra) SIN VENTAS en los últimos {dias} días (stock inmovilizado)")
+    print(analisis.tabla_como_texto(analisis.analizar_sin_movimiento(inventario)))
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -249,6 +267,7 @@ OPCIONES = [
     ("9", "Ver movimientos", opcion_ver_movimientos),
     ("10", "Ver alertas de reposición", opcion_ver_alertas),
     ("11", "Exportar orden de compra (CSV)", opcion_exportar_orden),
+    ("12", "Ver indicadores", opcion_ver_indicadores),
     ("0", "Salir", opcion_salir),
 ]
 

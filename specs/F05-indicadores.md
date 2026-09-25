@@ -33,7 +33,7 @@ Como dueño, quiero ver el ranking de los productos que más salen, para prioriz
 
 **Verificar:** `pytest -q`.
 
-### [ ] F05.4 · Menú de indicadores
+### [x] F05.4 · Menú de indicadores
 Como usuario, quiero ver los tres indicadores juntos desde el menú.
 
 - `main.py`: `opcion_ver_indicadores(inventario)` (`12`): valor total y tabla por categoría (F05.1), cobertura de los 10 más urgentes (F05.2) y top 5 (F05.3). Usar `df.to_string(index=False)` con `float_format` de 2 decimales.
