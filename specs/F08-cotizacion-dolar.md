@@ -49,7 +49,7 @@ Como dueño, quiero ver cuánto vale mi inventario y cuánto cuesta reponer en d
 
 **Verificar:** `python main.py`, opción `14` con y sin wifi.
 
-### [ ] F08.3 · Cotización en la notebook (P2)
+### [x] F08.3 · Cotización en la notebook (P2)
 Como estudiante, quiero mostrar en la notebook de dónde vienen los datos externos.
 
 - `analisis.ipynb`: celda después de los indicadores que llama a `fuente_externa.obtener_cotizacion()`, muestra el dict y la tabla de valor por categoría con `valor_usd`. Una línea de markdown que explique la caché.
