@@ -15,7 +15,7 @@ Como docente, quiero abrir el README y saber qué hace la app, cómo correrla y 
 
 **Verificar:** seguir el README en una terminal nueva desde cero y que funcione. `grep -c PENDIENTE docs/guia.md` da 0.
 
-### [ ] F07.2 · Registro de prompts curado
+### [x] F07.2 · Registro de prompts curado
 Como docente, quiero ver al menos tres prompts relevantes, qué propuso la IA y qué decidió el estudiante.
 
 - `docs/registro_prompts.md`: elegir las 3–5 entradas más relevantes de los borradores `[REVISAR]` (idealmente una aceptada, una modificada y una rechazada), completar "Decisión" y "Verificación" con palabras propias, borrar las marcas y los borradores que no aportan. La entrada 0 (setup) se queda: es el ejemplo más claro de propuesta modificada.

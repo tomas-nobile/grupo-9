@@ -26,9 +26,8 @@ F08.3 → F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 
 ## Dónde está (2026-09-25)
 
-F01–F06 y F08 están implementadas y verificadas: 77 tests, smoke, notebook ejecutada y ZIP probado en un venv limpio. F07.1 (README y guía) está lista. Falta lo que solo puede hacer Tomás:
+F01–F08 están implementadas y verificadas: 77 tests, smoke, notebook ejecutada y ZIP probado en un venv limpio. F07.1 y F07.2 están listas. Falta lo que solo puede hacer Tomás:
 
-- **F07.2:** completar "Decisión" en las 4 entradas `[REVISAR]` de `docs/registro_prompts.md`, con palabras propias.
 - **F07.3:** confirmar el nombre del ZIP (ver TODO en `decisions.md`), correr `/entregar`, que rearma el ZIP, subirlo al campus y ensayar `docs/guion_oral.md` con cronómetro.
 
 ## Estado
@@ -42,7 +41,7 @@ F01–F06 y F08 están implementadas y verificadas: 77 tests, smoke, notebook ej
 | [F05 · Indicadores con pandas](../specs/F05-indicadores.md) | P0/P2 | [x] .1 · [x] .2 · [x] .3 · [x] .4 |
 | [F06 · Gráfico y notebook](../specs/F06-grafico-notebook.md) | P0/P2 | [x] .1 · [x] .2 · [x] .3 |
 | [F08 · Fuente externa: cotización del dólar](../specs/F08-cotizacion-dolar.md) | P0/P2 | [x] .1 · [x] .2 · [x] .3 |
-| [F07 · Entrega y oral](../specs/F07-entrega.md) | P0 | [x] .1 · [ ] .2 · [ ] .3 |
+| [F07 · Entrega y oral](../specs/F07-entrega.md) | P0 | [x] .1 · [x] .2 · [ ] .3 |
 
 ## Qué evalúan (100 pts) y dónde se cubre
 
@@ -68,4 +67,4 @@ F01–F06 y F08 están implementadas y verificadas: 77 tests, smoke, notebook ej
 - [x] Al menos una visualización clara (F06.1)
 - [x] ≥ 4 funciones propias con type hints · try/except · ≥ 2 módulos · pandas · Matplotlib
 - [x] `main.py`, módulos de lógica, `analisis.ipynb`, `datos/`, `requirements.txt`, `README.md`
-- [ ] Registro de ≥ 3 prompts con decisión y verificación
+- [x] Registro de ≥ 3 prompts con decisión y verificación
