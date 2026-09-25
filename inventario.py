@@ -3,7 +3,7 @@
 Toda regla de negocio vive acá (búsquedas, altas, movimientos de stock, alertas).
 No lee ni escribe archivos: eso lo hace persistencia.py.
 """
-from modelos import Producto
+from modelos import Movimiento, Producto
 
 
 def _codigo_de(producto: Producto) -> str:
@@ -14,7 +14,7 @@ def _codigo_de(producto: Producto) -> str:
 class Inventario:
     """Colección de productos y movimientos con las operaciones del almacén."""
 
-    def __init__(self, productos: list[Producto], movimientos: list | None = None) -> None:
+    def __init__(self, productos: list[Producto], movimientos: list[Movimiento] | None = None) -> None:
         self.productos = productos
         if movimientos is None:
             movimientos = []

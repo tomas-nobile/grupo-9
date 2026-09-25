@@ -24,7 +24,7 @@ Como usuario, quiero correr `python main.py` y ver un menú con mis productos, p
 
 **Verificar:** `python main.py` muestra el menú, `1` lista los productos, `0` sale. `pytest -q` verde.
 
-### [ ] F01.2 · Movimientos: modelo, persistencia y datos de ejemplo
+### [x] F01.2 · Movimientos: modelo, persistencia y datos de ejemplo
 Como usuario, quiero que la app arranque con un historial de entradas y salidas, para que los indicadores y gráficos tengan datos desde el primer día.
 
 - `modelos.py`: `class Movimiento` con `__init__(self, fecha: str, codigo: str, tipo: str, cantidad: int)`. Valida fecha ISO (`datetime.date.fromisoformat`), tipo en `("entrada", "salida")`, cantidad entero > 0. `a_dict(self) -> dict`, `__repr__`. Constantes `TIPO_ENTRADA = "entrada"`, `TIPO_SALIDA = "salida"`. Función `movimiento_desde_dict(datos: dict) -> Movimiento`.

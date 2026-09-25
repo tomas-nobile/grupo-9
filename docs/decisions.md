@@ -2,6 +2,8 @@
 
 Una línea por entrada, la más nueva arriba. Prefijos: `DECISION:`, `TODO:`, `CONTRATO:` (cambio a los contratos de `CLAUDE.md`).
 
+- 2026-09-25 · DECISION: F01.2 `datos/movimientos.csv` tiene 72 filas de 30 días (27/8 al 25/9), no 40–60 de 21 como decía el spec: 30 días coinciden con la ventana por defecto de los indicadores de F05, así el consumo diario no queda subestimado. Los productos en alerta no tienen entradas en el período (por eso están en alerta). Generado una vez con un script descartable, no commiteado.
+
 - 2026-09-25 · DECISION: **se agrega una fuente externa** (F08), revirtiendo el "sin fuente externa" del setup. API: DolarApi (`/v1/dolares/oficial`, sin clave), campo `venta`, para valuar inventario y reposición en USD. Módulo propio `fuente_externa.py` con `requests` y timeout de 5 s; si falla usa `datos/cotizacion.json` (se commitea una caché inicial para que la demo ande sin wifi). Alternativas descartadas: Fake Store API (productos genéricos que no son de un almacén) y un CSV de proveedor (no es una API).
 - 2026-09-25 · TODO: confirmar con el docente el nombre del ZIP. La consigna dice `Apellido_Nombre_TP1.zip`; el repo y el ZIP se llaman `grupo-9` por pedido de Tomás.
 - 2026-09-25 · DECISION: **POO aunque no esté en el programa** (clases 1–7 llegan hasta colecciones y funciones). Motivo: hay que explicar cómo funciona el sistema, y con `Producto`, `Movimiento` e `Inventario` cada concepto del problema tiene un lugar. Se compensa con `docs/guia.md`, que explica cada clase, y con una regla: una clase por concepto real, sin herencia ni dataclasses.

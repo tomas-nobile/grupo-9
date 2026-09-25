@@ -51,10 +51,11 @@ def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")  # tildes correctas en cualquier terminal de Windows
     try:
         productos = persistencia.cargar_productos()
+        movimientos = persistencia.cargar_movimientos()
     except ErrorInventario as error:
         print(f"Error al cargar los datos: {error}")
         return
-    inventario = Inventario(productos)
+    inventario = Inventario(productos, movimientos)
 
     while True:
         mostrar_menu()
