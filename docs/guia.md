@@ -181,6 +181,23 @@ Tiene cuatro grupos de funciones, separados con comentarios:
 - **Opciones:** hay una función `opcion_*` por cada opción del menú, todas con la misma firma `(inventario) -> None`. Las que modifican datos guardan con `persistencia` al final. `registrar_y_guardar` es el código común de entradas y salidas.
 - **Menú:** `OPCIONES` es una lista de tuplas `(tecla, texto, función)`. En Python una función es un valor más: se puede guardar en una lista y llamarla después. `ejecutar_opcion` busca la tecla en la lista y llama a su función. `main()` carga los datos, muestra el aviso de alertas y corre el `while True` con **un único `try/except ErrorInventario`** para todos los errores de negocio.
 
+| Tecla | Función | Qué llama |
+|---|---|---|
+| 1 | `opcion_listar_productos` | `inventario.listar()` |
+| 2 | `opcion_buscar` | `inventario.buscar(texto)` |
+| 3 | `opcion_filtrar_categoria` | `inventario.categorias()` y `filtrar_por_categoria` |
+| 4 | `opcion_agregar_producto` | `Producto(...)`, `inventario.agregar`, `guardar_productos` |
+| 5 | `opcion_modificar_producto` | `inventario.modificar`, `guardar_productos` |
+| 6 | `opcion_eliminar_producto` | `confirmar`, `inventario.eliminar`, `guardar_productos` |
+| 7 · 8 | `opcion_registrar_entrada` · `opcion_registrar_salida` | `registrar_y_guardar`, que llama a `registrar_movimiento`, `guardar_productos` y `agregar_movimiento` |
+| 9 | `opcion_ver_movimientos` | `inventario.movimientos_de` |
+| 10 | `opcion_ver_alertas` | `inventario.alertas()`, `costo_total_reposicion()` |
+| 11 | `opcion_exportar_orden` | `persistencia.exportar_orden_compra` |
+| 12 | `opcion_ver_indicadores` | `analisis.analizar_*` |
+| 13 | `opcion_generar_grafico` | `analisis.graficar_stock_vs_minimo` o `graficar_salidas_por_dia` |
+| 14 | `opcion_ver_valor_usd` | `fuente_externa.obtener_cotizacion`, `analisis.analizar_valor_inventario(..., venta)` |
+| 0 | `opcion_salir` | `sys.exit(0)` |
+
 `sys.stdout.reconfigure(encoding="utf-8")` al principio de `main()` hace que las tildes se vean bien en cualquier terminal de Windows, incluida Git Bash.
 
 ### 4.6 `analisis.ipynb`: la notebook
