@@ -24,6 +24,13 @@ F08.3 → F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 
 **Nunca cortar:** el MVP ni la guía.
 
+## Dónde está (2026-09-25)
+
+F01–F06 y F08 están implementadas y verificadas: 77 tests, smoke, notebook ejecutada y ZIP probado en un venv limpio. F07.1 (README y guía) está lista. Falta lo que solo puede hacer Tomás:
+
+- **F07.2:** completar "Decisión" en las 4 entradas `[REVISAR]` de `docs/registro_prompts.md`, con palabras propias.
+- **F07.3:** confirmar el nombre del ZIP (ver TODO en `decisions.md`), correr `/entregar`, que rearma el ZIP, subirlo al campus y ensayar `docs/guion_oral.md` con cronómetro.
+
 ## Estado
 
 | Feature | Prioridad | Stories |
@@ -52,13 +59,13 @@ F08.3 → F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 
 ## Requisitos de la consigna (checklist)
 
-- [ ] Cargar, obtener o recuperar información (F01, F02.1)
-- [ ] Validar datos y responder ante errores (F01.1, F02.2, F03.2)
-- [ ] Consultar, buscar, filtrar o modificar registros (F02)
-- [ ] Al menos tres indicadores útiles (F05.1–3)
-- [ ] Guardar/recuperar con JSON o CSV (F01)
-- [ ] Fuente de datos externa mediante API (F08)
-- [ ] Al menos una visualización clara (F06.1)
-- [ ] ≥ 4 funciones propias con type hints · try/except · ≥ 2 módulos · pandas · Matplotlib
-- [ ] `main.py`, módulos de lógica, `analisis.ipynb`, `datos/`, `requirements.txt`, `README.md`
+- [x] Cargar, obtener o recuperar información (F01, F02.1)
+- [x] Validar datos y responder ante errores (F01.1, F02.2, F03.2)
+- [x] Consultar, buscar, filtrar o modificar registros (F02)
+- [x] Al menos tres indicadores útiles (F05.1–3)
+- [x] Guardar/recuperar con JSON o CSV (F01)
+- [x] Fuente de datos externa mediante API (F08)
+- [x] Al menos una visualización clara (F06.1)
+- [x] ≥ 4 funciones propias con type hints · try/except · ≥ 2 módulos · pandas · Matplotlib
+- [x] `main.py`, módulos de lógica, `analisis.ipynb`, `datos/`, `requirements.txt`, `README.md`
 - [ ] Registro de ≥ 3 prompts con decisión y verificación

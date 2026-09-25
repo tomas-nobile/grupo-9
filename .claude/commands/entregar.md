@@ -19,6 +19,6 @@ Revisar y arreglar lo que falte, en este orden. Marcar cada ítem en la respuest
 5. `docs/registro_prompts.md`: ≥ 3 entradas completas, `grep -c REVISAR` da 0.
 6. `requirements.txt` instala en un venv limpio: `python -m venv "$TEMP/venv-check" && "$TEMP/venv-check/Scripts/pip" install -r requirements.txt`.
 7. `git status` limpio y push a `main`.
-8. Armar el ZIP en la carpeta padre con **solo**: `main.py`, `inventario.py`, `modelos.py`, `persistencia.py`, `fuente_externa.py`, `analisis.py`, `analisis.ipynb`, `datos/`, `graficos/`, `tests/`, `requirements.txt`, `README.md`, `docs/guia.md`, `docs/registro_prompts.md`. Sin `.venv`, `__pycache__`, `.git`, `.claude`, `specs/`.
+8. Armar el ZIP en la carpeta padre con **solo**: `main.py`, `inventario.py`, `modelos.py`, `persistencia.py`, `fuente_externa.py`, `analisis.py`, `analisis.ipynb`, `datos/`, `graficos/`, `tests/`, `pytest.ini`, `requirements.txt`, `README.md`, `docs/guia.md`, `docs/registro_prompts.md`. Sin `.venv`, `__pycache__`, `.git`, `.claude`, `specs/`.
    Nombre: el que dice `docs/README.md` → "Entrega". Armarlo con Python (`shutil.make_archive` sobre una carpeta temporal con esos archivos copiados), no depender de `zip` en Git Bash.
 9. Listar el contenido del ZIP (`python -m zipfile -l ../<NOMBRE>.zip`) y confirmar que abre y que no pesa más de unos MB.
