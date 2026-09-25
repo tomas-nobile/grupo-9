@@ -34,7 +34,7 @@ Como dueño, quiero que la app traiga la cotización del día sola, y que siga f
 
 **Verificar:** `python -c "import fuente_externa; print(fuente_externa.obtener_cotizacion())"` imprime `origen: api`. Con el wifi apagado imprime `origen: cache`.
 
-### [ ] F08.2 · Valores en dólares en el menú
+### [x] F08.2 · Valores en dólares en el menú
 Como dueño, quiero ver cuánto vale mi inventario y cuánto cuesta reponer en dólares, para comparar con precios de proveedores o con meses anteriores.
 
 - `analisis.py`: `analizar_valor_inventario(inventario, cotizacion: float | None = None) -> pd.DataFrame` suma la columna `valor_usd = valor / cotizacion` cuando se pasa cotización. `analisis.py` no llama a la API: recibe el número por parámetro, así se testea sin red.

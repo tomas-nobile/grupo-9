@@ -7,6 +7,7 @@ import os
 import sys
 
 import analisis
+import fuente_externa
 import persistencia
 from inventario import CAMPOS_MODIFICABLES, Inventario
 from modelos import TIPO_ENTRADA, TIPO_SALIDA, ErrorInventario, Movimiento, Producto
@@ -260,6 +261,24 @@ def opcion_generar_grafico(inventario: Inventario) -> None:
     print(f"Gráfico guardado en {os.path.relpath(ruta)}")
 
 
+def opcion_ver_valor_usd(inventario: Inventario) -> None:
+    """Consulta la cotización del dólar y muestra el inventario y la reposición en dólares."""
+    cotizacion = fuente_externa.obtener_cotizacion()
+    venta = cotizacion["venta"]
+    if cotizacion["origen"] == fuente_externa.ORIGEN_API:
+        print(f"Dólar oficial (venta): $ {venta:,.2f} · consultado en DolarApi, actualizado el {cotizacion['fecha']}")
+    else:
+        print(f"Dólar oficial (venta): $ {venta:,.2f} · SIN CONEXIÓN: se usa la cotización guardada "
+              f"del {cotizacion['fecha']}")
+    valor = analisis.valor_total_inventario(inventario)
+    reposicion = inventario.costo_total_reposicion()
+    print()
+    print(f"Valor del inventario:  $ {valor:>12,.2f}  =  US$ {valor / venta:>10,.2f}")
+    print(f"Costo de reponer:      $ {reposicion:>12,.2f}  =  US$ {reposicion / venta:>10,.2f}")
+    print()
+    print(analisis.tabla_como_texto(analisis.analizar_valor_inventario(inventario, venta)))
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -281,6 +300,7 @@ OPCIONES = [
     ("11", "Exportar orden de compra (CSV)", opcion_exportar_orden),
     ("12", "Ver indicadores", opcion_ver_indicadores),
     ("13", "Generar gráfico", opcion_generar_grafico),
+    ("14", "Valor en dólares (cotización online)", opcion_ver_valor_usd),
     ("0", "Salir", opcion_salir),
 ]
 

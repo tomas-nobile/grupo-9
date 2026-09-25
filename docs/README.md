@@ -34,7 +34,7 @@ F08.3 → F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 | [F04 · Alertas de reabastecimiento](../specs/F04-alertas.md) | P0/P1 | [x] .1 · [x] .2 · [x] .3 |
 | [F05 · Indicadores con pandas](../specs/F05-indicadores.md) | P0/P2 | [x] .1 · [x] .2 · [x] .3 · [x] .4 |
 | [F06 · Gráfico y notebook](../specs/F06-grafico-notebook.md) | P0/P2 | [x] .1 · [x] .2 · [x] .3 |
-| [F08 · Fuente externa: cotización del dólar](../specs/F08-cotizacion-dolar.md) | P0/P2 | [x] .1 · [ ] .2 · [ ] .3 |
+| [F08 · Fuente externa: cotización del dólar](../specs/F08-cotizacion-dolar.md) | P0/P2 | [x] .1 · [x] .2 · [ ] .3 |
 | [F07 · Entrega y oral](../specs/F07-entrega.md) | P0 | [ ] .1 · [ ] .2 · [ ] .3 |
 
 ## Qué evalúan (100 pts) y dónde se cubre

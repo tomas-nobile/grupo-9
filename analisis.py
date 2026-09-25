@@ -53,8 +53,8 @@ def valor_total_inventario(inventario: Inventario) -> float:
     return float((productos["precio"] * productos["stock"]).sum())
 
 
-def analizar_valor_inventario(inventario: Inventario) -> pd.DataFrame:
-    """Valor del stock por categoría, de mayor a menor."""
+def analizar_valor_inventario(inventario: Inventario, cotizacion: float | None = None) -> pd.DataFrame:
+    """Valor del stock por categoría, de mayor a menor. Con cotización, agrega el valor en dólares."""
     productos = productos_a_dataframe(inventario)
     productos["valor"] = productos["precio"] * productos["stock"]
     resumen = productos.groupby("categoria").agg(
@@ -62,7 +62,10 @@ def analizar_valor_inventario(inventario: Inventario) -> pd.DataFrame:
         unidades=("stock", "sum"),
         valor=("valor", "sum"),
     )
-    return resumen.reset_index().sort_values("valor", ascending=False)
+    resumen = resumen.reset_index().sort_values("valor", ascending=False)
+    if cotizacion is not None:
+        resumen["valor_usd"] = resumen["valor"] / cotizacion
+    return resumen
 
 
 # ---------- Salidas del período (base de los indicadores 2 y 3) ----------

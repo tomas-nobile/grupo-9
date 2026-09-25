@@ -112,3 +112,14 @@ def test_ventas_por_dia_completa_dias_sin_ventas_con_cero():
 def test_graficar_salidas_por_dia_crea_el_png(tmp_path):
     ruta = str(tmp_path / "salidas.png")
     assert os.path.exists(analisis.graficar_salidas_por_dia(_inventario(), ruta=ruta))
+
+
+# --- Valor en dólares (F08) ---
+
+def test_valor_en_dolares_con_cotizacion():
+    resumen = analisis.analizar_valor_inventario(_inventario(), cotizacion=1000.0)
+    assert list(resumen["valor_usd"]) == [1.2, 0.0]
+
+
+def test_valor_sin_cotizacion_no_agrega_columna():
+    assert "valor_usd" not in analisis.analizar_valor_inventario(_inventario()).columns
