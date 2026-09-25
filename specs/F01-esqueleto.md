@@ -36,7 +36,7 @@ Como usuario, quiero que la app arranque con un historial de entradas y salidas,
 
 **Verificar:** `python -c "import persistencia; print(len(persistencia.cargar_movimientos()))"` imprime 40 o más.
 
-### [ ] F01.3 · Recorrido no interactivo (smoke)
+### [x] F01.3 · Recorrido no interactivo (smoke)
 Como desarrollador, quiero correr el menú sin tocar el teclado, para verificar en un comando que nada rompe después de cada story.
 
 - `tests/smoke_input.txt`: una respuesta por línea; recorre cada opción de solo lectura del menú con datos válidos y termina con `0`. Cada story que agrega una opción de lectura lo actualiza.
