@@ -15,7 +15,7 @@ Como dueño, quiero saber cuánta plata tengo inmovilizada en stock, total y por
 
 **Verificar:** `pytest -q`.
 
-### [ ] F05.2 · Consumo diario y días de cobertura
+### [x] F05.2 · Consumo diario y días de cobertura
 Como dueño, quiero saber cuántos días me dura el stock de cada producto al ritmo actual de ventas, para reponer antes de quedarme sin nada.
 
 - `analizar_cobertura(inventario, dias: int = 30) -> pd.DataFrame`: salidas de los últimos `dias`, `groupby("codigo")` suma de `cantidad` / `dias` = `consumo_diario`; `merge` con productos (`how="left"`, consumo 0 si no hubo salidas); `dias_cobertura = stock / consumo_diario` (consumo 0 → `NaN`, mostrar como "sin ventas"). Columnas: `codigo, nombre, stock, consumo_diario, dias_cobertura`, ordenado por `dias_cobertura` ascendente con los `NaN` al final.
