@@ -17,7 +17,7 @@ Como dueño del almacén, quiero una lista de los productos que hay que reponer 
 
 **Verificar:** `pytest -q`.
 
-### [ ] F04.2 · Mostrar alertas
+### [x] F04.2 · Mostrar alertas
 Como usuario, quiero ver las alertas al entrar a la app y desde el menú, para no olvidarme de reponer.
 
 - `main.py`: `mostrar_alertas(productos: list[Producto], costo_total: float) -> None`: tabla código · nombre · stock · mínimo · pedir · costo, con el total al pie. Si no hay: "Sin productos para reponer". `opcion_ver_alertas(inventario)` (`10`).

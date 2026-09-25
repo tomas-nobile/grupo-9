@@ -95,6 +95,27 @@ def mostrar_movimientos(movimientos: list[Movimiento]) -> None:
         print(f"{m.fecha:<12}{m.codigo:<8}{m.tipo:<9}{m.cantidad:>9}")
 
 
+def mostrar_alertas(productos: list[Producto], costo_total: float) -> None:
+    """Imprime la tabla de productos a reponer con la cantidad sugerida y el costo."""
+    if len(productos) == 0:
+        print("Sin productos para reponer.")
+        return
+    print(f"{'CÓDIGO':<7}{'NOMBRE':<26}{'STOCK':>6}{'MÍNIMO':>8}{'PEDIR':>7}{'COSTO':>12}")
+    for p in productos:
+        print(f"{p.codigo:<7}{p.nombre:<26}{p.stock:>6}{p.stock_minimo:>8}"
+              f"{p.cantidad_sugerida():>7}{p.costo_reposicion():>12.2f}")
+    print(f"{'TOTAL A INVERTIR':<54}{costo_total:>12.2f}")
+
+
+def mostrar_resumen_alertas(inventario: Inventario) -> None:
+    """Línea de aviso que se muestra al arrancar."""
+    cantidad = len(inventario.alertas())
+    if cantidad == 0:
+        print("Stock en orden.")
+    else:
+        print(f"ALERTA: {cantidad} productos para reponer (opción 10).")
+
+
 # ---------- Opciones del menú: una función por opción ----------
 
 def opcion_listar_productos(inventario: Inventario) -> None:
@@ -197,6 +218,11 @@ def opcion_ver_movimientos(inventario: Inventario) -> None:
         mostrar_movimientos(inventario.movimientos_de(producto.codigo))
 
 
+def opcion_ver_alertas(inventario: Inventario) -> None:
+    """Muestra los productos a reponer, cuánto pedir y cuánto cuesta."""
+    mostrar_alertas(inventario.alertas(), inventario.costo_total_reposicion())
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -214,6 +240,7 @@ OPCIONES = [
     ("7", "Registrar entrada de stock", opcion_registrar_entrada),
     ("8", "Registrar salida de stock", opcion_registrar_salida),
     ("9", "Ver movimientos", opcion_ver_movimientos),
+    ("10", "Ver alertas de reposición", opcion_ver_alertas),
     ("0", "Salir", opcion_salir),
 ]
 
@@ -245,6 +272,7 @@ def main() -> None:
         print(f"Error al cargar los datos: {error}")
         return
     inventario = Inventario(productos, movimientos)
+    mostrar_resumen_alertas(inventario)
 
     while True:
         mostrar_menu()
