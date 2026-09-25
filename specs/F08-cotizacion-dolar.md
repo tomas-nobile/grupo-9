@@ -14,7 +14,7 @@ Se usa `venta` (lo que cuesta comprar un dólar), porque el indicador responde "
 
 ## Stories
 
-### [ ] F08.1 · Obtener la cotización con respaldo local
+### [x] F08.1 · Obtener la cotización con respaldo local
 Como dueño, quiero que la app traiga la cotización del día sola, y que siga funcionando si no hay internet.
 
 - `requirements.txt`: agregar `requests` con versión fijada.
