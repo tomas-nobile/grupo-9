@@ -113,6 +113,9 @@ class Inventario:
             fecha = datetime.date.today().isoformat()
         movimiento = Movimiento(fecha, producto.codigo, tipo, cantidad)  # valida tipo, cantidad y fecha
         if movimiento.tipo == TIPO_SALIDA:
+            if movimiento.cantidad > producto.stock:
+                raise ErrorInventario(f"Stock insuficiente de {producto.nombre}: hay {producto.stock}, "
+                                      f"se pidieron {movimiento.cantidad}.")
             producto.stock = producto.stock - movimiento.cantidad
         else:
             producto.stock = producto.stock + movimiento.cantidad

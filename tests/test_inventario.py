@@ -137,3 +137,23 @@ def test_movimiento_codigo_inexistente_lanza():
 def test_movimiento_sin_fecha_usa_hoy():
     movimiento = _inventario().registrar_movimiento("A001", "entrada", 1)
     assert movimiento.fecha == datetime.date.today().isoformat()
+
+
+def test_salida_resta_stock():
+    inventario = _inventario()
+    inventario.registrar_movimiento("A002", "salida", 5)
+    assert inventario.obtener("A002").stock == 20
+
+
+def test_salida_mayor_al_stock_lanza_y_no_cambia():
+    inventario = _inventario()
+    with pytest.raises(ErrorInventario):
+        inventario.registrar_movimiento("A001", "salida", 7)
+    assert inventario.obtener("A001").stock == 6
+    assert inventario.movimientos == []
+
+
+def test_salida_que_deja_stock_cero_es_valida():
+    inventario = _inventario()
+    inventario.registrar_movimiento("A001", "salida", 6)
+    assert inventario.obtener("A001").stock == 0

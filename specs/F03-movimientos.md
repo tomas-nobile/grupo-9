@@ -16,7 +16,7 @@ Como usuario, quiero registrar que llegó mercadería, para que el stock suba y 
 
 **Verificar:** registrar una entrada, ver el stock nuevo en `1` y la fila nueva al final de `datos/movimientos.csv`.
 
-### [ ] F03.2 · Registrar salida
+### [x] F03.2 · Registrar salida
 Como usuario, quiero registrar una venta o consumo, y que la app no me deje sacar más de lo que hay.
 
 - `registrar_movimiento` con `tipo = TIPO_SALIDA`: si `cantidad > producto.stock` lanza `ErrorInventario("Stock insuficiente de <nombre>: hay N, se pidieron M")` sin cambiar nada.
