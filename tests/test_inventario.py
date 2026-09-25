@@ -70,3 +70,27 @@ def test_agregar_codigo_repetido_lanza_y_no_agrega():
 def test_obtener_o_error_inexistente_lanza():
     with pytest.raises(ErrorInventario):
         _inventario().obtener_o_error("Z999")
+
+
+def test_modificar_precio_valido():
+    inventario = _inventario()
+    actualizado = inventario.modificar("A001", "precio", 2700.0)
+    assert actualizado.precio == 2700.0
+    assert inventario.obtener("A001").precio == 2700.0
+
+
+def test_modificar_precio_invalido_lanza_y_no_cambia():
+    inventario = _inventario()
+    with pytest.raises(ErrorInventario):
+        inventario.modificar("A001", "precio", -10)
+    assert inventario.obtener("A001").precio == 2500.0
+
+
+def test_modificar_codigo_inexistente_lanza():
+    with pytest.raises(ErrorInventario):
+        _inventario().modificar("Z999", "precio", 100.0)
+
+
+def test_modificar_stock_lanza():
+    with pytest.raises(ErrorInventario):
+        _inventario().modificar("A001", "stock", 100)

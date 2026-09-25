@@ -6,7 +6,7 @@ Las reglas de negocio están en inventario.py y modelos.py.
 import sys
 
 import persistencia
-from inventario import Inventario
+from inventario import CAMPOS_MODIFICABLES, Inventario
 from modelos import ErrorInventario, Producto
 
 
@@ -122,6 +122,23 @@ def opcion_agregar_producto(inventario: Inventario) -> None:
     print(f"Producto {producto.codigo} agregado.")
 
 
+def opcion_modificar_producto(inventario: Inventario) -> None:
+    """Cambia nombre, categoría, precio o stock mínimo de un producto."""
+    producto = inventario.obtener_o_error(pedir_texto("Código: "))
+    mostrar_productos([producto])
+    campo = elegir_de_lista("¿Qué campo querés cambiar?", list(CAMPOS_MODIFICABLES))
+    if campo == "precio":
+        valor = pedir_decimal("Precio nuevo: ")
+    elif campo == "stock_minimo":
+        valor = pedir_entero("Stock mínimo nuevo: ")
+    else:
+        valor = pedir_texto(f"{campo.capitalize()} nuevo: ")
+    actualizado = inventario.modificar(producto.codigo, campo, valor)
+    persistencia.guardar_productos(inventario.productos)
+    print("Producto actualizado:")
+    mostrar_productos([actualizado])
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -134,6 +151,7 @@ OPCIONES = [
     ("2", "Buscar producto", opcion_buscar),
     ("3", "Filtrar por categoría", opcion_filtrar_categoria),
     ("4", "Agregar producto", opcion_agregar_producto),
+    ("5", "Modificar producto", opcion_modificar_producto),
     ("0", "Salir", opcion_salir),
 ]
 

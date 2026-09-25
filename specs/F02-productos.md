@@ -27,7 +27,7 @@ Como usuario, quiero agregar un producto nuevo y que la app me avise si cargo al
 
 **Verificar:** alta con precio "abc" repregunta; alta con código repetido muestra el error y vuelve; alta válida aparece en `1` y en `datos/productos.json`.
 
-### [ ] F02.3 · Modificar producto
+### [x] F02.3 · Modificar producto
 Como usuario, quiero cambiar precio, stock mínimo, nombre o categoría de un producto, para mantener el inventario al día.
 
 - `Inventario.modificar(self, codigo: str, campo: str, valor) -> Producto`: campos permitidos `nombre`, `precio`, `stock_minimo`, `categoria`. Arma un `Producto` nuevo con el cambio (así valida el constructor) y reemplaza al viejo en la lista; devuelve el nuevo. Código inexistente o campo no permitido (incluido `stock`: "el stock se cambia con un movimiento") → `ErrorInventario`.

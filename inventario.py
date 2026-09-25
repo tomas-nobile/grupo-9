@@ -3,7 +3,9 @@
 Toda regla de negocio vive acá (búsquedas, altas, movimientos de stock, alertas).
 No lee ni escribe archivos: eso lo hace persistencia.py.
 """
-from modelos import ErrorInventario, Movimiento, Producto
+from modelos import ErrorInventario, Movimiento, Producto, producto_desde_dict
+
+CAMPOS_MODIFICABLES = ("nombre", "categoria", "precio", "stock_minimo")
 
 
 def _codigo_de(producto: Producto) -> str:
@@ -74,3 +76,21 @@ class Inventario:
         if self.obtener(producto.codigo) is not None:
             raise ErrorInventario(f"Ya existe un producto con código {producto.codigo}.")
         self.productos.append(producto)
+
+    def modificar(self, codigo: str, campo: str, valor: str | float | int) -> Producto:
+        """Cambia un campo de un producto y devuelve el producto actualizado.
+
+        Arma un Producto nuevo con el cambio para que lo valide el constructor:
+        si el valor es inválido, se lanza ErrorInventario y el producto original queda igual.
+        """
+        if campo == "stock":
+            raise ErrorInventario("El stock no se modifica a mano: registrá una entrada o una salida.")
+        if campo not in CAMPOS_MODIFICABLES:
+            raise ErrorInventario(f"El campo '{campo}' no se puede modificar.")
+        actual = self.obtener_o_error(codigo)
+        datos = actual.a_dict()
+        datos[campo] = valor
+        nuevo = producto_desde_dict(datos)
+        posicion = self.productos.index(actual)
+        self.productos[posicion] = nuevo
+        return nuevo

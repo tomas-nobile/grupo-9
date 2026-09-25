@@ -1,17 +1,122 @@
 [
-  {"codigo": "A001", "nombre": "Yerba mate 500g", "categoria": "almacen", "precio": 2500.0, "stock": 6, "stock_minimo": 10},
-  {"codigo": "A002", "nombre": "Azúcar 1kg", "categoria": "almacen", "precio": 1400.0, "stock": 25, "stock_minimo": 10},
-  {"codigo": "A003", "nombre": "Fideos spaghetti 500g", "categoria": "almacen", "precio": 1100.0, "stock": 30, "stock_minimo": 12},
-  {"codigo": "A004", "nombre": "Arroz largo fino 1kg", "categoria": "almacen", "precio": 1600.0, "stock": 9, "stock_minimo": 8},
-  {"codigo": "A005", "nombre": "Aceite de girasol 900ml", "categoria": "almacen", "precio": 3200.0, "stock": 4, "stock_minimo": 6},
-  {"codigo": "B001", "nombre": "Gaseosa cola 2.25L", "categoria": "bebidas", "precio": 3800.0, "stock": 18, "stock_minimo": 12},
-  {"codigo": "B002", "nombre": "Agua mineral 1.5L", "categoria": "bebidas", "precio": 1200.0, "stock": 0, "stock_minimo": 15},
-  {"codigo": "B003", "nombre": "Cerveza lata 473ml", "categoria": "bebidas", "precio": 1900.0, "stock": 40, "stock_minimo": 24},
-  {"codigo": "B004", "nombre": "Jugo en polvo", "categoria": "bebidas", "precio": 450.0, "stock": 22, "stock_minimo": 20},
-  {"codigo": "L001", "nombre": "Lavandina 1L", "categoria": "limpieza", "precio": 1300.0, "stock": 11, "stock_minimo": 6},
-  {"codigo": "L002", "nombre": "Detergente 500ml", "categoria": "limpieza", "precio": 1700.0, "stock": 5, "stock_minimo": 5},
-  {"codigo": "L003", "nombre": "Papel higiénico x4", "categoria": "limpieza", "precio": 2900.0, "stock": 14, "stock_minimo": 8},
-  {"codigo": "G001", "nombre": "Alfajor triple", "categoria": "golosinas", "precio": 1100.0, "stock": 35, "stock_minimo": 20},
-  {"codigo": "G002", "nombre": "Chocolate 100g", "categoria": "golosinas", "precio": 2600.0, "stock": 7, "stock_minimo": 10},
-  {"codigo": "G003", "nombre": "Chicles menta", "categoria": "golosinas", "precio": 600.0, "stock": 50, "stock_minimo": 15}
+  {
+    "codigo": "A001",
+    "nombre": "Yerba mate 500g",
+    "categoria": "almacen",
+    "precio": 2500.0,
+    "stock": 6,
+    "stock_minimo": 10
+  },
+  {
+    "codigo": "A002",
+    "nombre": "Azúcar 1kg",
+    "categoria": "almacen",
+    "precio": 1400.0,
+    "stock": 25,
+    "stock_minimo": 10
+  },
+  {
+    "codigo": "A003",
+    "nombre": "Fideos spaghetti 500g",
+    "categoria": "almacen",
+    "precio": 1100.0,
+    "stock": 30,
+    "stock_minimo": 12
+  },
+  {
+    "codigo": "A004",
+    "nombre": "Arroz largo fino 1kg",
+    "categoria": "almacen",
+    "precio": 1600.0,
+    "stock": 9,
+    "stock_minimo": 8
+  },
+  {
+    "codigo": "A005",
+    "nombre": "Aceite de girasol 900ml",
+    "categoria": "almacen",
+    "precio": 3200.0,
+    "stock": 4,
+    "stock_minimo": 6
+  },
+  {
+    "codigo": "B001",
+    "nombre": "Gaseosa cola 2.25L",
+    "categoria": "bebidas",
+    "precio": 3800.0,
+    "stock": 18,
+    "stock_minimo": 12
+  },
+  {
+    "codigo": "B002",
+    "nombre": "Agua mineral 1.5L",
+    "categoria": "bebidas",
+    "precio": 1200.0,
+    "stock": 0,
+    "stock_minimo": 15
+  },
+  {
+    "codigo": "B003",
+    "nombre": "Cerveza lata 473ml",
+    "categoria": "bebidas",
+    "precio": 1900.0,
+    "stock": 40,
+    "stock_minimo": 24
+  },
+  {
+    "codigo": "B004",
+    "nombre": "Jugo en polvo",
+    "categoria": "bebidas",
+    "precio": 450.0,
+    "stock": 22,
+    "stock_minimo": 20
+  },
+  {
+    "codigo": "L001",
+    "nombre": "Lavandina 1L",
+    "categoria": "limpieza",
+    "precio": 1300.0,
+    "stock": 11,
+    "stock_minimo": 6
+  },
+  {
+    "codigo": "L002",
+    "nombre": "Detergente 500ml",
+    "categoria": "limpieza",
+    "precio": 1700.0,
+    "stock": 5,
+    "stock_minimo": 5
+  },
+  {
+    "codigo": "L003",
+    "nombre": "Papel higiénico x4",
+    "categoria": "limpieza",
+    "precio": 2900.0,
+    "stock": 14,
+    "stock_minimo": 8
+  },
+  {
+    "codigo": "G001",
+    "nombre": "Alfajor triple",
+    "categoria": "golosinas",
+    "precio": 1100.0,
+    "stock": 35,
+    "stock_minimo": 20
+  },
+  {
+    "codigo": "G002",
+    "nombre": "Chocolate 100g",
+    "categoria": "golosinas",
+    "precio": 2600.0,
+    "stock": 7,
+    "stock_minimo": 10
+  },
+  {
+    "codigo": "G003",
+    "nombre": "Chicles menta",
+    "categoria": "golosinas",
+    "precio": 600.0,
+    "stock": 50,
+    "stock_minimo": 15
+  }
 ]
