@@ -4,7 +4,7 @@
 
 **Entrega:** viernes **2/10/2026**, ZIP `grupo-9_TP1.zip` por el campus + oral individual de 5 min. Repo: https://github.com/tomas-nobile/grupo-9
 
-**MVP** (lo mínimo que cumple la consigna) = F01 + F02.1–2 + F03.1–2 + F04.1–2 + F05.1–3 + F06.1–2 + F07.
+**MVP** (lo mínimo que cumple la consigna) = F01 + F02.1–2 + F03.1–2 + F04.1–2 + F05.1–3 + F06.1–2 + F08.1–2 + F07.
 
 ## Plan (desde el 25/9)
 
@@ -13,14 +13,14 @@
 | Sáb 26/9 | F01.1–3, F02.1–3 |
 | Dom 27/9 | F03.1–3, F04.1–3 |
 | Lun 28/9 | F05.1–4 |
-| Mar 29/9 | F06.1–3 |
+| Mar 29/9 | F06.1–3, F08.1–3 |
 | Mié 30/9 | F07.1–2 (README, guía completa, registro de prompts) |
 | Jue 1/10 | F07.3 (ZIP, guion y ensayo del oral) · buffer |
 | Vie 2/10 | Entrega y oral |
 
 ## Orden de corte (si vamos atrasados, cortar de arriba hacia abajo)
 
-F06.3 → F05.4 → F04.3 → F03.3 → F02.4
+F08.3 → F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 
 **Nunca cortar:** el MVP ni la guía.
 
@@ -34,6 +34,7 @@ F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 | [F04 · Alertas de reabastecimiento](../specs/F04-alertas.md) | P0/P1 | [ ] .1 · [ ] .2 · [ ] .3 |
 | [F05 · Indicadores con pandas](../specs/F05-indicadores.md) | P0/P2 | [ ] .1 · [ ] .2 · [ ] .3 · [ ] .4 |
 | [F06 · Gráfico y notebook](../specs/F06-grafico-notebook.md) | P0/P2 | [ ] .1 · [ ] .2 · [ ] .3 |
+| [F08 · Fuente externa: cotización del dólar](../specs/F08-cotizacion-dolar.md) | P0/P2 | [ ] .1 · [ ] .2 · [ ] .3 |
 | [F07 · Entrega y oral](../specs/F07-entrega.md) | P0 | [ ] .1 · [ ] .2 · [ ] .3 |
 
 ## Qué evalúan (100 pts) y dónde se cubre
@@ -43,7 +44,7 @@ F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 | Funcionamiento | 20 | todo; `/check` verde |
 | Explicación | 20 | `docs/guia.md`, código en capas, `docs/decisions.md`, guion del oral (F07.3) |
 | Contenidos de Python | 15 | clases, funciones tipadas, módulos, try/except (F01–F04) |
-| Datos | 10 | JSON + CSV (F01–F03) |
+| Datos | 10 | JSON + CSV (F01–F03), API externa con caché (F08) |
 | Pandas y visualización | 15 | F05, F06 |
 | Pruebas y corrección | 10 | `tests/`, casos inválidos demostrables (F02.2, F03.2) |
 | Uso de IA | 5 | `docs/registro_prompts.md` (F07.2) |
@@ -56,6 +57,7 @@ F06.3 → F05.4 → F04.3 → F03.3 → F02.4
 - [ ] Consultar, buscar, filtrar o modificar registros (F02)
 - [ ] Al menos tres indicadores útiles (F05.1–3)
 - [ ] Guardar/recuperar con JSON o CSV (F01)
+- [ ] Fuente de datos externa mediante API (F08)
 - [ ] Al menos una visualización clara (F06.1)
 - [ ] ≥ 4 funciones propias con type hints · try/except · ≥ 2 módulos · pandas · Matplotlib
 - [ ] `main.py`, módulos de lógica, `analisis.ipynb`, `datos/`, `requirements.txt`, `README.md`

@@ -22,7 +22,7 @@ No es un producto: es un TP que hay que **defender en un oral**. Todo lo que se 
 
 POO está fuera del programa de la cursada pero es una decisión del proyecto (ver `docs/decisions.md`): la usamos porque ordena el código y se puede explicar. Todo lo demás sale de las clases 1–7 y de lo que pide la consigna.
 
-**Permitido:** clases con `__init__`, atributos y métodos; una excepción propia (`ErrorInventario`); `@property` y `@classmethod` solo si simplifican de verdad (y se explican en la guía); variables y tipos básicos, `input`/`print`, f-strings, `if/elif/else`, `for`/`while`/`range`, listas, tuplas, diccionarios, funciones con **anotaciones de tipo** (`list[Producto]`, `str | None`), módulos propios, `try`/`except`, `json`, `csv`, `datetime`, `os`, `pandas`, `matplotlib`. Una list comprehension simple está bien.
+**Permitido:** clases con `__init__`, atributos y métodos; una excepción propia (`ErrorInventario`); `@property` y `@classmethod` solo si simplifican de verdad (y se explican en la guía); variables y tipos básicos, `input`/`print`, f-strings, `if/elif/else`, `for`/`while`/`range`, listas, tuplas, diccionarios, funciones con **anotaciones de tipo** (`list[Producto]`, `str | None`), módulos propios, `try`/`except`, `json`, `csv`, `datetime`, `os`, `requests`, `pandas`, `matplotlib`, `monkeypatch` de pytest para simular la API en los tests. Una list comprehension simple está bien.
 
 **Evitar:** herencia (salvo `ErrorInventario(Exception)`), `dataclass`, `lambda`, decoradores propios, generadores, `typing` avanzado (`TypedDict`, `Protocol`, genéricos), comprehensions anidadas, `argparse`, `*args`/`**kwargs`, dunder methods más allá de `__init__` y `__repr__`, librerías que no estén en `requirements.txt`.
 
@@ -40,7 +40,7 @@ POO está fuera del programa de la cursada pero es una decisión del proyecto (v
 
 ## Stack y layout
 
-Python 3.12 · stdlib (`json`, `csv`, `datetime`, `os`) · `pandas` · `matplotlib` · `pytest` · `jupyter` para la notebook. Entorno: `python -m venv .venv` + `pip install -r requirements.txt`.
+Python 3.12 · stdlib (`json`, `csv`, `datetime`, `os`) · `requests` (API externa, F08) · `pandas` · `matplotlib` · `pytest` · `jupyter` para la notebook. Entorno: `python -m venv .venv` + `pip install -r requirements.txt`.
 
 Cuatro capas, un módulo por capa, sin paquetes (todo en la raíz para que `python main.py` funcione sin configurar nada):
 
@@ -48,18 +48,20 @@ Cuatro capas, un módulo por capa, sin paquetes (todo en la raíz para que `pyth
 main.py            PRESENTACIÓN: menú de consola, funciones pedir_*/mostrar_*. No tiene lógica de negocio
 inventario.py      DOMINIO: clase Inventario (colección de productos y movimientos, búsqueda, altas, movimientos, alertas)
 modelos.py         MODELOS: clases Producto y Movimiento (datos + validación), excepción ErrorInventario
-persistencia.py    DATOS: cargar/guardar JSON y CSV, exportar orden de compra. Único módulo que abre archivos
+persistencia.py    DATOS: cargar/guardar JSON y CSV, exportar orden de compra, caché de cotización. Único módulo que abre archivos
+fuente_externa.py  DATOS: cotización del dólar desde DolarApi con requests, con respaldo en caché. Único módulo que usa la red
 analisis.py        ANÁLISIS: funciones analizar_* (pandas) y graficar_* (matplotlib). Lo usan main.py y la notebook
-analisis.ipynb     exploración con pandas + gráficos + conclusiones (importa persistencia y analisis)
+analisis.ipynb     exploración con pandas + gráficos + conclusiones (importa persistencia, analisis y fuente_externa)
 datos/productos.json     inventario (lista de dicts)
 datos/movimientos.csv    historial de entradas y salidas
+datos/cotizacion.json    última cotización obtenida de la API (caché, se commitea para que la demo ande sin wifi)
 graficos/                PNG generados por la app (se commitean: van en el ZIP)
-tests/test_<modulo>.py   pytest, un archivo por módulo de lógica (modelos, inventario, persistencia, analisis)
+tests/test_<modulo>.py   pytest, un archivo por módulo de lógica (modelos, inventario, persistencia, fuente_externa, analisis)
 tests/smoke_input.txt    entradas para recorrer el menú sin teclado
 docs/  specs/            ver arriba
 ```
 
-**Dependencias entre módulos (solo hacia abajo):** `main` → `inventario`, `persistencia`, `analisis` · `inventario` → `modelos` · `persistencia` → `modelos` · `analisis` → `inventario`, `modelos`. `modelos` no importa nada del proyecto.
+**Dependencias entre módulos (solo hacia abajo):** `main` → `inventario`, `persistencia`, `fuente_externa`, `analisis` · `inventario` → `modelos` · `persistencia` → `modelos` · `fuente_externa` → `persistencia`, `modelos` · `analisis` → `inventario`, `modelos`. `modelos` no importa nada del proyecto. `analisis` no llama a la API: recibe la cotización por parámetro.
 
 **Idioma:** todo en español (identificadores, comentarios, mensajes, docs). Identificadores sin tildes ni ñ (`calcular_reposicion`, no `calcular_reposición`). Clases en `PascalCase`, todo lo demás en `snake_case`.
 
@@ -94,6 +96,12 @@ fecha,codigo,tipo,cantidad
 
 **Errores:** la lógica (modelos, inventario, persistencia) lanza `ErrorInventario`; `main.py` la atrapa con `try/except`, muestra el mensaje y vuelve al menú. Los errores de archivo (`FileNotFoundError`, `json.JSONDecodeError`, `OSError`) se atrapan en `persistencia.py` y se relanzan como `ErrorInventario` con un mensaje en español.
 
+**Cotización** (`fuente_externa.obtener_cotizacion()`, caché en `datos/cotizacion.json`):
+```json
+{"venta": 1545.0, "fecha": "2026-09-25", "origen": "api"}
+```
+- Fuente: `GET https://dolarapi.com/v1/dolares/oficial`, sin clave, se usa el campo `venta`. `origen` es `api` o `cache`. Si la API falla se usa la caché; si no hay caché, `ErrorInventario`. Detalle en `specs/F08-cotizacion-dolar.md`.
+
 **Alerta:** un producto está en alerta cuando `stock <= stock_minimo` (`Producto.esta_en_alerta()`). Cantidad sugerida a pedir = `stock_minimo * 2 - stock` (`Producto.cantidad_sugerida()`; el stock objetivo es el doble del mínimo). Detalle en `specs/F04-alertas.md`.
 
 ## Gotchas
@@ -102,4 +110,5 @@ fecha,codigo,tipo,cantidad
 - Guardar JSON con `ensure_ascii=False` e `indent=2` para que se lea bien en el oral.
 - `matplotlib` desde consola: siempre `plt.savefig()` a `graficos/` antes de `plt.show()`. En los tests usar `matplotlib.use("Agg")`.
 - Los tests nunca leen `datos/`: usan objetos armados en el test y `tmp_path` de pytest para archivos.
-- El smoke (`tests/smoke_input.txt`) solo recorre opciones de lectura, así no modifica `datos/`.
+- El smoke (`tests/smoke_input.txt`) solo recorre opciones de lectura, así no modifica `datos/` (salvo la caché de cotización, que se refresca sola).
+- `requests.get` siempre con `timeout`: sin él, una red caída cuelga el menú. Los tests nunca llaman a la API real: usan `monkeypatch`.
