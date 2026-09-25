@@ -31,7 +31,7 @@ Como estudiante, quiero una notebook que muestre la exploración con pandas y la
 
 **Verificar:** `/check` paso 5 pasa; abrir la notebook y ver los gráficos renderizados.
 
-### [ ] F06.3 · Gráfico de salidas por día (P2)
+### [x] F06.3 · Gráfico de salidas por día (P2)
 Como dueño, quiero ver la evolución de las ventas en el último mes.
 
 - `graficar_salidas_por_dia(inventario, dias: int = 30, ruta: str = "graficos/salidas_por_dia.png") -> str`: línea de suma de salidas por fecha.

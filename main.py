@@ -249,9 +249,14 @@ def opcion_ver_indicadores(inventario: Inventario) -> None:
 
 
 def opcion_generar_grafico(inventario: Inventario) -> None:
-    """Genera el gráfico de stock vs. mínimo, lo guarda como PNG y ofrece abrirlo."""
+    """Genera un gráfico, lo guarda como PNG y ofrece abrirlo."""
+    stock = "Stock actual vs. stock mínimo"
+    grafico = elegir_de_lista("¿Qué gráfico?", [stock, "Unidades vendidas por día"])
     mostrar = confirmar("¿Abrir el gráfico en una ventana?")
-    ruta = analisis.graficar_stock_vs_minimo(inventario, mostrar=mostrar)
+    if grafico == stock:
+        ruta = analisis.graficar_stock_vs_minimo(inventario, mostrar=mostrar)
+    else:
+        ruta = analisis.graficar_salidas_por_dia(inventario, mostrar=mostrar)
     print(f"Gráfico guardado en {os.path.relpath(ruta)}")
 
 

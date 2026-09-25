@@ -100,3 +100,15 @@ def test_graficar_stock_vs_minimo_crea_el_png(tmp_path):
     devuelta = analisis.graficar_stock_vs_minimo(_inventario(), ruta)
     assert devuelta == ruta
     assert os.path.exists(ruta)
+
+
+def test_ventas_por_dia_completa_dias_sin_ventas_con_cero():
+    tabla = analisis.ventas_por_dia(_inventario(), dias=30)
+    assert len(tabla) == 30
+    assert tabla["unidades"].sum() == 39     # 10 + 20 + 6 + 3
+    assert tabla.iloc[-1]["unidades"] == 3   # el último día (2026-09-25)
+
+
+def test_graficar_salidas_por_dia_crea_el_png(tmp_path):
+    ruta = str(tmp_path / "salidas.png")
+    assert os.path.exists(analisis.graficar_salidas_por_dia(_inventario(), ruta=ruta))

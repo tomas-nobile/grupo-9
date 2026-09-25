@@ -14,6 +14,7 @@ from modelos import TIPO_SALIDA
 DIAS_ANALISIS = 30
 CARPETA_GRAFICOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "graficos")
 RUTA_GRAFICO_STOCK = os.path.join(CARPETA_GRAFICOS, "stock_vs_minimo.png")
+RUTA_GRAFICO_SALIDAS = os.path.join(CARPETA_GRAFICOS, "salidas_por_dia.png")
 COLOR_ALERTA = "#d62728"
 COLOR_OK = "#2ca02c"
 
@@ -163,4 +164,32 @@ def graficar_stock_vs_minimo(inventario: Inventario, ruta: str = RUTA_GRAFICO_ST
     eje.set_xlabel("Unidades")
     eje.set_ylabel("Producto")
     eje.legend(loc="upper right")
+    return _guardar_grafico(figura, ruta, mostrar)
+
+
+def ventas_por_dia(inventario: Inventario, dias: int = DIAS_ANALISIS) -> pd.DataFrame:
+    """Unidades que salieron cada día del período. Los días sin ventas aparecen con 0."""
+    salidas = salidas_recientes(inventario, dias)
+    if salidas.empty:
+        return pd.DataFrame({"fecha": [], "unidades": []})
+    por_dia = salidas.groupby("fecha")["cantidad"].sum()
+    todos_los_dias = pd.date_range(end=por_dia.index.max(), periods=dias, freq="D")
+    por_dia = por_dia.reindex(todos_los_dias, fill_value=0)
+    return pd.DataFrame({"fecha": por_dia.index, "unidades": por_dia.values})
+
+
+def graficar_salidas_por_dia(inventario: Inventario, dias: int = DIAS_ANALISIS,
+                             ruta: str = RUTA_GRAFICO_SALIDAS, mostrar: bool = False) -> str:
+    """Línea con las unidades vendidas por día y su promedio."""
+    tabla = ventas_por_dia(inventario, dias)
+    figura, eje = plt.subplots(figsize=(9, 4.5))
+    eje.plot(tabla["fecha"], tabla["unidades"], marker="o", color="#1f77b4", label="Unidades vendidas")
+    if not tabla.empty:
+        promedio = tabla["unidades"].mean()
+        eje.axhline(promedio, linestyle="--", color="gray", label=f"Promedio: {promedio:.1f} por día")
+    eje.set_title(f"Unidades vendidas por día (últimos {dias} días)")
+    eje.set_xlabel("Fecha")
+    eje.set_ylabel("Unidades")
+    eje.legend(loc="upper right")
+    figura.autofmt_xdate()
     return _guardar_grafico(figura, ruta, mostrar)
