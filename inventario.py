@@ -20,6 +20,8 @@ class Inventario:
             movimientos = []
         self.movimientos = movimientos
 
+    # ---------- Consultas: no modifican nada ----------
+
     def listar(self) -> list[Producto]:
         """Devuelve una copia de los productos ordenada por código."""
         return sorted(self.productos, key=_codigo_de)
@@ -31,3 +33,29 @@ class Inventario:
             if producto.codigo == codigo:
                 return producto
         return None
+
+    def buscar(self, texto: str) -> list[Producto]:
+        """Productos cuyo código o nombre contiene el texto, sin distinguir mayúsculas."""
+        texto = texto.strip().lower()
+        encontrados = []
+        for producto in self.listar():
+            if texto in producto.codigo.lower() or texto in producto.nombre.lower():
+                encontrados.append(producto)
+        return encontrados
+
+    def categorias(self) -> list[str]:
+        """Lista de categorías sin repetir, ordenada alfabéticamente."""
+        categorias = []
+        for producto in self.productos:
+            if producto.categoria not in categorias:
+                categorias.append(producto.categoria)
+        return sorted(categorias)
+
+    def filtrar_por_categoria(self, categoria: str) -> list[Producto]:
+        """Productos de una categoría."""
+        categoria = categoria.strip().lower()
+        filtrados = []
+        for producto in self.listar():
+            if producto.categoria == categoria:
+                filtrados.append(producto)
+        return filtrados

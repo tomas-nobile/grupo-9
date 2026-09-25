@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F02.1 · Buscar y filtrar
+### [x] F02.1 · Buscar y filtrar
 Como usuario, quiero buscar un producto por código o parte del nombre y filtrar por categoría, para encontrar rápido lo que necesito.
 
 - `Inventario.buscar(self, texto: str) -> list[Producto]`: coincide si `texto` (sin distinguir mayúsculas) está en `codigo` o en `nombre`. Texto vacío → todos.
