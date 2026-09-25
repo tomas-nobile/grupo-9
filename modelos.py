@@ -9,6 +9,9 @@ TIPO_ENTRADA = "entrada"
 TIPO_SALIDA = "salida"
 TIPOS_MOVIMIENTO = (TIPO_ENTRADA, TIPO_SALIDA)
 
+# Al reponer se apunta a tener el doble del stock mínimo.
+FACTOR_STOCK_OBJETIVO = 2
+
 
 class ErrorInventario(Exception):
     """Error de negocio con un mensaje pensado para mostrarle al usuario."""
@@ -52,6 +55,23 @@ class Producto:
             "stock": self.stock,
             "stock_minimo": self.stock_minimo,
         }
+
+    def esta_en_alerta(self) -> bool:
+        """True si el stock llegó al mínimo o está por debajo."""
+        return self.stock <= self.stock_minimo
+
+    def cantidad_sugerida(self) -> int:
+        """Unidades a pedir para llegar al stock objetivo (el doble del mínimo). Nunca negativo."""
+        faltante = self.stock_minimo * FACTOR_STOCK_OBJETIVO - self.stock
+        return max(faltante, 0)
+
+    def costo_reposicion(self) -> float:
+        """Cuánto cuesta comprar la cantidad sugerida, a precio actual."""
+        return self.cantidad_sugerida() * self.precio
+
+    def valor_stock(self) -> float:
+        """Plata inmovilizada en este producto: stock por precio."""
+        return self.stock * self.precio
 
     def __repr__(self) -> str:
         return f"Producto({self.codigo}, {self.nombre}, stock={self.stock})"

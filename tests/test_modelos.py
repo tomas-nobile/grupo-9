@@ -91,3 +91,27 @@ def test_movimiento_cantidad_cero_lanza():
 def test_movimiento_desde_dict_convierte_cantidad():
     m = movimiento_desde_dict({"fecha": "2026-09-20", "codigo": "A001", "tipo": "entrada", "cantidad": "7"})
     assert m.cantidad == 7
+
+
+# --- Alertas ---
+
+def test_justo_en_el_minimo_esta_en_alerta():
+    assert _producto(stock=10, stock_minimo=10).esta_en_alerta()
+
+
+def test_por_encima_del_minimo_no_esta_en_alerta():
+    assert not _producto(stock=11, stock_minimo=10).esta_en_alerta()
+
+
+def test_cantidad_sugerida_llega_al_doble_del_minimo():
+    assert _producto(stock=6, stock_minimo=10).cantidad_sugerida() == 14
+
+
+def test_cantidad_sugerida_nunca_negativa():
+    assert _producto(stock=50, stock_minimo=10).cantidad_sugerida() == 0
+
+
+def test_costo_reposicion_y_valor_stock():
+    p = _producto(precio=100.0, stock=6, stock_minimo=10)
+    assert p.costo_reposicion() == 1400.0
+    assert p.valor_stock() == 600.0

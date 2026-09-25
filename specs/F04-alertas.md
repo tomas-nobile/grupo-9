@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F04.1 · Calcular alertas
+### [x] F04.1 · Calcular alertas
 Como dueño del almacén, quiero una lista de los productos que hay que reponer con la cantidad sugerida, para armar el pedido al proveedor.
 
 - `modelos.py`: `FACTOR_STOCK_OBJETIVO = 2`. `Producto.esta_en_alerta(self) -> bool` (`stock <= stock_minimo`), `Producto.cantidad_sugerida(self) -> int` (`stock_minimo * FACTOR_STOCK_OBJETIVO - stock`, nunca negativo), `Producto.costo_reposicion(self) -> float` (`cantidad_sugerida * precio`), `Producto.valor_stock(self) -> float` (`stock * precio`).

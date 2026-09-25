@@ -168,3 +168,21 @@ def test_movimientos_de_filtra_por_codigo_y_limita():
     assert len(inventario.movimientos_de("a001")) == 3
     ultimos = inventario.movimientos_de(ultimos=2)
     assert [m.fecha for m in ultimos] == ["2026-09-22", "2026-09-23"]
+
+
+# --- Alertas ---
+
+def test_alertas_ordenadas_por_urgencia_sin_stock_primero():
+    alertas = _inventario().alertas()
+    assert [p.codigo for p in alertas] == ["B002", "A001"]
+
+
+def test_costo_total_reposicion():
+    # B002: pedir 30 x 1200 = 36000 · A001: pedir 14 x 2500 = 35000
+    assert _inventario().costo_total_reposicion() == 71000.0
+
+
+def test_alertas_con_stock_minimo_cero_no_rompe():
+    inventario = Inventario([Producto("X1", "Suelto", "varios", 10.0, 0, 0)])
+    assert [p.codigo for p in inventario.alertas()] == ["X1"]
+    assert inventario.costo_total_reposicion() == 0.0

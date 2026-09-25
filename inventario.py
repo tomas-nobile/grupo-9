@@ -15,6 +15,14 @@ def _codigo_de(producto: Producto) -> str:
     return producto.codigo
 
 
+def _urgencia(producto: Producto) -> float:
+    """Clave de orden de las alertas: qué fracción del mínimo queda (0 = sin stock, lo más urgente)."""
+    minimo = producto.stock_minimo
+    if minimo == 0:
+        minimo = 1  # evita dividir por cero
+    return producto.stock / minimo
+
+
 class Inventario:
     """Colección de productos y movimientos con las operaciones del almacén."""
 
@@ -63,6 +71,23 @@ class Inventario:
             if producto.categoria == categoria:
                 filtrados.append(producto)
         return filtrados
+
+    # ---------- Alertas de reabastecimiento ----------
+
+    def alertas(self) -> list[Producto]:
+        """Productos en el mínimo o por debajo, del más urgente al menos urgente."""
+        en_alerta = []
+        for producto in self.productos:
+            if producto.esta_en_alerta():
+                en_alerta.append(producto)
+        return sorted(en_alerta, key=_urgencia)
+
+    def costo_total_reposicion(self) -> float:
+        """Suma de lo que cuesta reponer todos los productos en alerta."""
+        total = 0.0
+        for producto in self.alertas():
+            total = total + producto.costo_reposicion()
+        return total
 
     # ---------- Cambios: validan todo antes de modificar ----------
 

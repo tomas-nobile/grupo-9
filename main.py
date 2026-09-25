@@ -181,7 +181,7 @@ def opcion_registrar_entrada(inventario: Inventario) -> None:
 def opcion_registrar_salida(inventario: Inventario) -> None:
     """Registra una venta o consumo y avisa si el producto quedó en el mínimo."""
     producto = registrar_y_guardar(inventario, TIPO_SALIDA)
-    if producto.stock <= producto.stock_minimo:
+    if producto.esta_en_alerta():
         print(f"ALERTA: {producto.nombre} quedó en el mínimo o por debajo "
               f"(stock {producto.stock}, mínimo {producto.stock_minimo}).")
 
