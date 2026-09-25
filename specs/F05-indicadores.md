@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F05.1 · Valor del inventario
+### [x] F05.1 · Valor del inventario
 Como dueño, quiero saber cuánta plata tengo inmovilizada en stock, total y por categoría.
 
 - `analisis.py`: `productos_a_dataframe(inventario: Inventario) -> pd.DataFrame` y `movimientos_a_dataframe(inventario: Inventario) -> pd.DataFrame` (columna `fecha` como `datetime`). `analizar_valor_inventario(inventario) -> pd.DataFrame`: columna `valor = precio * stock`, `groupby("categoria")` con suma de `valor` y cantidad de productos, ordenado por valor descendente. `valor_total_inventario(inventario) -> float`.

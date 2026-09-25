@@ -3,6 +3,7 @@
 Este módulo solo habla con el usuario: pide datos, llama a la lógica y muestra resultados.
 Las reglas de negocio están en inventario.py y modelos.py.
 """
+import os
 import sys
 
 import persistencia
@@ -226,7 +227,7 @@ def opcion_ver_alertas(inventario: Inventario) -> None:
 def opcion_exportar_orden(inventario: Inventario) -> None:
     """Guarda las alertas como orden de compra en un CSV para mandar al proveedor."""
     cantidad = persistencia.exportar_orden_compra(inventario.alertas())
-    print(f"Orden de compra con {cantidad} productos guardada en {persistencia.RUTA_ORDEN_COMPRA}")
+    print(f"Orden de compra con {cantidad} productos guardada en {os.path.relpath(persistencia.RUTA_ORDEN_COMPRA)}")
 
 
 def opcion_salir(inventario: Inventario) -> None:
