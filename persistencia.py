@@ -15,6 +15,7 @@ CARPETA_DATOS = os.path.join(CARPETA_BASE, "datos")
 RUTA_PRODUCTOS = os.path.join(CARPETA_DATOS, "productos.json")
 RUTA_MOVIMIENTOS = os.path.join(CARPETA_DATOS, "movimientos.csv")
 COLUMNAS_MOVIMIENTOS = ["fecha", "codigo", "tipo", "cantidad"]
+RUTA_ORDEN_COMPRA = os.path.join(CARPETA_DATOS, "orden_compra.csv")
 
 
 def _crear_carpeta_de(ruta: str) -> None:
@@ -80,3 +81,21 @@ def agregar_movimiento(movimiento: Movimiento, ruta: str = RUTA_MOVIMIENTOS) -> 
             escritor.writerow(movimiento.a_dict())
     except OSError:
         raise ErrorInventario(f"No se pudo guardar el movimiento en {ruta}.")
+
+
+def exportar_orden_compra(productos: list[Producto], ruta: str = RUTA_ORDEN_COMPRA) -> int:
+    """Escribe un CSV con lo que hay que pedir de cada producto y el total. Devuelve cuántos exportó."""
+    total = 0.0
+    try:
+        _crear_carpeta_de(ruta)
+        with open(ruta, "w", encoding="utf-8", newline="") as archivo:
+            escritor = csv.writer(archivo)
+            escritor.writerow(["codigo", "nombre", "cantidad", "costo_estimado"])
+            for producto in productos:
+                costo = producto.costo_reposicion()
+                escritor.writerow([producto.codigo, producto.nombre, producto.cantidad_sugerida(), f"{costo:.2f}"])
+                total = total + costo
+            escritor.writerow(["TOTAL", "", "", f"{total:.2f}"])
+    except OSError:
+        raise ErrorInventario(f"No se pudo escribir la orden de compra en {ruta}.")
+    return len(productos)

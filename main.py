@@ -223,6 +223,12 @@ def opcion_ver_alertas(inventario: Inventario) -> None:
     mostrar_alertas(inventario.alertas(), inventario.costo_total_reposicion())
 
 
+def opcion_exportar_orden(inventario: Inventario) -> None:
+    """Guarda las alertas como orden de compra en un CSV para mandar al proveedor."""
+    cantidad = persistencia.exportar_orden_compra(inventario.alertas())
+    print(f"Orden de compra con {cantidad} productos guardada en {persistencia.RUTA_ORDEN_COMPRA}")
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -241,6 +247,7 @@ OPCIONES = [
     ("8", "Registrar salida de stock", opcion_registrar_salida),
     ("9", "Ver movimientos", opcion_ver_movimientos),
     ("10", "Ver alertas de reposición", opcion_ver_alertas),
+    ("11", "Exportar orden de compra (CSV)", opcion_exportar_orden),
     ("0", "Salir", opcion_salir),
 ]
 

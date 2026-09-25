@@ -26,7 +26,7 @@ Como usuario, quiero ver las alertas al entrar a la app y desde el menú, para n
 
 **Verificar:** `python main.py` muestra el aviso al arrancar y `10` la tabla.
 
-### [ ] F04.3 · Exportar orden de compra
+### [x] F04.3 · Exportar orden de compra
 Como dueño, quiero exportar las alertas a un CSV, para mandárselo al proveedor.
 
 - `persistencia.py`: `RUTA_ORDEN_COMPRA = "datos/orden_compra.csv"`, `exportar_orden_compra(productos: list[Producto], ruta) -> int`: escribe `codigo, nombre, cantidad, costo_estimado` por producto en alerta y una última fila `TOTAL`; devuelve la cantidad de productos exportados. Error de escritura → `ErrorInventario`.

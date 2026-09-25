@@ -42,3 +42,13 @@ def test_agregar_dos_movimientos_y_cargar(tmp_path):
     assert len(cargados) == 2
     assert cargados[1].cantidad == 10
     assert type(cargados[0].cantidad) is int
+
+
+def test_exportar_orden_compra(tmp_path):
+    ruta = tmp_path / "orden.csv"
+    cantidad = persistencia.exportar_orden_compra(_productos(), str(ruta))
+    lineas = ruta.read_text(encoding="utf-8").strip().splitlines()
+    assert cantidad == 2
+    assert lineas[0] == "codigo,nombre,cantidad,costo_estimado"
+    assert len(lineas) == 4
+    assert lineas[-1] == "TOTAL,,,71000.00"
