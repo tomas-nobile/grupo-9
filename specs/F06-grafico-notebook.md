@@ -6,7 +6,7 @@
 
 ## Stories
 
-### [ ] F06.1 · Gráfico stock vs. mínimo
+### [x] F06.1 · Gráfico stock vs. mínimo
 Como dueño, quiero ver de un vistazo qué productos están por debajo del mínimo.
 
 - `analisis.py`: `RUTA_GRAFICOS = "graficos"`. `graficar_stock_vs_minimo(inventario, ruta: str = "graficos/stock_vs_minimo.png") -> str`: barras horizontales con `stock` por producto (etiqueta `nombre`), ordenadas por `stock / stock_minimo`; barra roja si `esta_en_alerta()`, verde si no; marca del `stock_minimo` de cada producto (un punto negro sobre la barra); título "Stock actual vs. stock mínimo", ejes con etiqueta, leyenda (En alerta / OK / Mínimo), `tight_layout`, `savefig(ruta, dpi=120)`, `plt.close()`; devuelve `ruta`. Crea la carpeta con `os.makedirs(exist_ok=True)`.

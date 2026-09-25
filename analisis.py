@@ -3,12 +3,19 @@
 Las funciones reciben el Inventario, arman los DataFrame adentro y devuelven resultados.
 Así main.py y la notebook usan exactamente el mismo cálculo.
 """
+import os
+
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from inventario import Inventario
 from modelos import TIPO_SALIDA
 
 DIAS_ANALISIS = 30
+CARPETA_GRAFICOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "graficos")
+RUTA_GRAFICO_STOCK = os.path.join(CARPETA_GRAFICOS, "stock_vs_minimo.png")
+COLOR_ALERTA = "#d62728"
+COLOR_OK = "#2ca02c"
 
 COLUMNAS_PRODUCTOS = ["codigo", "nombre", "categoria", "precio", "stock", "stock_minimo"]
 COLUMNAS_MOVIMIENTOS = ["fecha", "codigo", "tipo", "cantidad"]
@@ -117,3 +124,43 @@ def analizar_sin_movimiento(inventario: Inventario, dias: int = DIAS_ANALISIS) -
     tabla = tabla[(tabla["vendido"] == 0) & (tabla["stock"] > 0)]
     tabla["valor"] = tabla["precio"] * tabla["stock"]
     return tabla[["codigo", "nombre", "stock", "valor"]]
+
+
+# ---------- Gráficos ----------
+
+def _guardar_grafico(figura: plt.Figure, ruta: str, mostrar: bool) -> str:
+    """Guarda la figura como PNG, la muestra en pantalla si se pide, y devuelve la ruta."""
+    carpeta = os.path.dirname(ruta)
+    if carpeta != "":
+        os.makedirs(carpeta, exist_ok=True)
+    figura.tight_layout()
+    figura.savefig(ruta, dpi=120)
+    if mostrar:
+        plt.show()
+    plt.close(figura)
+    return ruta
+
+
+def graficar_stock_vs_minimo(inventario: Inventario, ruta: str = RUTA_GRAFICO_STOCK,
+                             mostrar: bool = False) -> str:
+    """Barras con el stock de cada producto (rojo si está en alerta) y una marca en su mínimo."""
+    tabla = productos_a_dataframe(inventario)
+    minimo = tabla["stock_minimo"].where(tabla["stock_minimo"] > 0, 1)  # evita dividir por cero
+    tabla["proporcion"] = tabla["stock"] / minimo
+    tabla = tabla.sort_values("proporcion", ascending=False).reset_index(drop=True)
+    tabla["posicion"] = range(len(tabla))
+    en_alerta = tabla[tabla["stock"] <= tabla["stock_minimo"]]
+    ok = tabla[tabla["stock"] > tabla["stock_minimo"]]
+
+    figura, eje = plt.subplots(figsize=(9, 6))
+    eje.barh(ok["posicion"], ok["stock"], color=COLOR_OK, label="Stock OK")
+    eje.barh(en_alerta["posicion"], en_alerta["stock"], color=COLOR_ALERTA, label="En alerta: reponer")
+    eje.scatter(tabla["stock_minimo"], tabla["posicion"], marker="|", s=250, linewidths=3,
+                color="black", label="Stock mínimo", zorder=3)
+    eje.set_yticks(tabla["posicion"])
+    eje.set_yticklabels(tabla["nombre"])
+    eje.set_title("Stock actual vs. stock mínimo")
+    eje.set_xlabel("Unidades")
+    eje.set_ylabel("Producto")
+    eje.legend(loc="upper right")
+    return _guardar_grafico(figura, ruta, mostrar)

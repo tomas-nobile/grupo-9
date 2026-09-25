@@ -248,6 +248,13 @@ def opcion_ver_indicadores(inventario: Inventario) -> None:
     print(analisis.tabla_como_texto(analisis.analizar_sin_movimiento(inventario)))
 
 
+def opcion_generar_grafico(inventario: Inventario) -> None:
+    """Genera el gráfico de stock vs. mínimo, lo guarda como PNG y ofrece abrirlo."""
+    mostrar = confirmar("¿Abrir el gráfico en una ventana?")
+    ruta = analisis.graficar_stock_vs_minimo(inventario, mostrar=mostrar)
+    print(f"Gráfico guardado en {os.path.relpath(ruta)}")
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -268,6 +275,7 @@ OPCIONES = [
     ("10", "Ver alertas de reposición", opcion_ver_alertas),
     ("11", "Exportar orden de compra (CSV)", opcion_exportar_orden),
     ("12", "Ver indicadores", opcion_ver_indicadores),
+    ("13", "Generar gráfico", opcion_generar_grafico),
     ("0", "Salir", opcion_salir),
 ]
 

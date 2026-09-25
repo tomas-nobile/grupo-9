@@ -1,3 +1,5 @@
+import os
+
 import matplotlib
 
 matplotlib.use("Agg")  # sin ventanas: los gráficos solo se guardan a archivo
@@ -89,3 +91,12 @@ def test_sin_movimiento_detecta_stock_inmovilizado():
     tabla = analisis.analizar_sin_movimiento(inventario)
     assert list(tabla["codigo"]) == ["Z001"]
     assert list(tabla["valor"]) == [50.0]
+
+
+# --- Gráficos ---
+
+def test_graficar_stock_vs_minimo_crea_el_png(tmp_path):
+    ruta = str(tmp_path / "graficos" / "stock.png")
+    devuelta = analisis.graficar_stock_vs_minimo(_inventario(), ruta)
+    assert devuelta == ruta
+    assert os.path.exists(ruta)
