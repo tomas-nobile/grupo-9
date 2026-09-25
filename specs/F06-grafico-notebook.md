@@ -16,7 +16,7 @@ Como dueño, quiero ver de un vistazo qué productos están por debajo del míni
 
 **Verificar:** abrir `graficos/stock_vs_minimo.png`: se distinguen los rojos y se lee cada nombre.
 
-### [ ] F06.2 · Notebook de análisis
+### [x] F06.2 · Notebook de análisis
 Como estudiante, quiero una notebook que muestre la exploración con pandas y las conclusiones, porque la consigna la pide y sirve para explicar los datos en el oral.
 
 - `analisis.ipynb` en la raíz. Celdas, en este orden, con una celda markdown de una o dos líneas antes de cada bloque:
