@@ -7,7 +7,7 @@ import sys
 
 import persistencia
 from inventario import CAMPOS_MODIFICABLES, Inventario
-from modelos import TIPO_ENTRADA, TIPO_SALIDA, ErrorInventario, Producto
+from modelos import TIPO_ENTRADA, TIPO_SALIDA, ErrorInventario, Movimiento, Producto
 
 
 # ---------- Entrada: funciones que piden datos por teclado ----------
@@ -83,6 +83,16 @@ def mostrar_productos(productos: list[Producto]) -> None:
     print(f"{'CÓDIGO':<7}{'NOMBRE':<26}{'CATEGORÍA':<11}{'PRECIO':>10}{'STOCK':>7}{'MÍNIMO':>8}")
     for p in productos:
         print(f"{p.codigo:<7}{p.nombre:<26}{p.categoria:<11}{p.precio:>10.2f}{p.stock:>7}{p.stock_minimo:>8}")
+
+
+def mostrar_movimientos(movimientos: list[Movimiento]) -> None:
+    """Imprime una tabla de movimientos."""
+    if len(movimientos) == 0:
+        print("No hay movimientos.")
+        return
+    print(f"{'FECHA':<12}{'CÓDIGO':<8}{'TIPO':<9}{'CANTIDAD':>9}")
+    for m in movimientos:
+        print(f"{m.fecha:<12}{m.codigo:<8}{m.tipo:<9}{m.cantidad:>9}")
 
 
 # ---------- Opciones del menú: una función por opción ----------
@@ -176,6 +186,17 @@ def opcion_registrar_salida(inventario: Inventario) -> None:
               f"(stock {producto.stock}, mínimo {producto.stock_minimo}).")
 
 
+def opcion_ver_movimientos(inventario: Inventario) -> None:
+    """Muestra los últimos movimientos, de todos o de un producto."""
+    codigo = leer("Código (Enter = todos): ")
+    if codigo == "":
+        mostrar_movimientos(inventario.movimientos_de())
+    else:
+        producto = inventario.obtener_o_error(codigo)
+        print(f"Movimientos de {producto.nombre}:")
+        mostrar_movimientos(inventario.movimientos_de(producto.codigo))
+
+
 def opcion_salir(inventario: Inventario) -> None:
     """Termina el programa."""
     print("Hasta luego.")
@@ -192,6 +213,7 @@ OPCIONES = [
     ("6", "Eliminar producto", opcion_eliminar_producto),
     ("7", "Registrar entrada de stock", opcion_registrar_entrada),
     ("8", "Registrar salida de stock", opcion_registrar_salida),
+    ("9", "Ver movimientos", opcion_ver_movimientos),
     ("0", "Salir", opcion_salir),
 ]
 

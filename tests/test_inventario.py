@@ -157,3 +157,14 @@ def test_salida_que_deja_stock_cero_es_valida():
     inventario = _inventario()
     inventario.registrar_movimiento("A001", "salida", 6)
     assert inventario.obtener("A001").stock == 0
+
+
+def test_movimientos_de_filtra_por_codigo_y_limita():
+    inventario = _inventario()
+    inventario.registrar_movimiento("A001", "entrada", 1, fecha="2026-09-20")
+    inventario.registrar_movimiento("A002", "salida", 1, fecha="2026-09-21")
+    inventario.registrar_movimiento("A001", "salida", 2, fecha="2026-09-22")
+    inventario.registrar_movimiento("A001", "salida", 3, fecha="2026-09-23")
+    assert len(inventario.movimientos_de("a001")) == 3
+    ultimos = inventario.movimientos_de(ultimos=2)
+    assert [m.fecha for m in ultimos] == ["2026-09-22", "2026-09-23"]

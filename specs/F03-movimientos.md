@@ -26,7 +26,7 @@ Como usuario, quiero registrar una venta o consumo, y que la app no me deje saca
 
 **Verificar:** intentar sacar 999 de un producto muestra el error; sacar la cantidad justa deja 0 y muestra el aviso.
 
-### [ ] F03.3 · Ver historial
+### [x] F03.3 · Ver historial
 Como usuario, quiero ver los últimos movimientos, o los de un producto, para entender qué pasó con el stock.
 
 - `Inventario.movimientos_de(self, codigo: str | None = None, ultimos: int = 20) -> list[Movimiento]`: filtra por código si se pasa y devuelve los últimos `ultimos` (los más recientes están al final de la lista).

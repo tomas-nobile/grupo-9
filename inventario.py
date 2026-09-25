@@ -121,3 +121,11 @@ class Inventario:
             producto.stock = producto.stock + movimiento.cantidad
         self.movimientos.append(movimiento)
         return movimiento
+
+    def movimientos_de(self, codigo: str | None = None, ultimos: int = 20) -> list[Movimiento]:
+        """Últimos movimientos, de todos los productos o de uno. El más reciente queda al final."""
+        seleccionados = []
+        for movimiento in self.movimientos:
+            if codigo is None or movimiento.codigo == codigo.strip().upper():
+                seleccionados.append(movimiento)
+        return seleccionados[-ultimos:]
