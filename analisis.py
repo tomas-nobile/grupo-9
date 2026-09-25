@@ -97,3 +97,23 @@ def analizar_cobertura(inventario: Inventario, dias: int = DIAS_ANALISIS) -> pd.
     tabla["dias_cobertura"] = cobertura.where(tabla["consumo_diario"] > 0)
     tabla = tabla.sort_values("dias_cobertura", na_position="last")
     return tabla[["codigo", "nombre", "stock", "consumo_diario", "dias_cobertura"]]
+
+
+# ---------- Indicador 3: productos más vendidos ----------
+
+def analizar_mas_vendidos(inventario: Inventario, top: int = 5, dias: int = DIAS_ANALISIS) -> pd.DataFrame:
+    """Ranking de los productos con más unidades vendidas en el período."""
+    tabla = _vendido_por_producto(inventario, dias)
+    tabla = tabla[tabla["vendido"] > 0]
+    tabla = tabla.sort_values("vendido", ascending=False).head(top)
+    return tabla[["codigo", "nombre", "categoria", "vendido"]]
+
+
+# ---------- Extra: productos sin ventas (stock inmovilizado) ----------
+
+def analizar_sin_movimiento(inventario: Inventario, dias: int = DIAS_ANALISIS) -> pd.DataFrame:
+    """Productos con stock que no tuvieron ninguna salida en el período."""
+    tabla = _vendido_por_producto(inventario, dias)
+    tabla = tabla[(tabla["vendido"] == 0) & (tabla["stock"] > 0)]
+    tabla["valor"] = tabla["precio"] * tabla["stock"]
+    return tabla[["codigo", "nombre", "stock", "valor"]]

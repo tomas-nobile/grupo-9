@@ -24,7 +24,7 @@ Como dueño, quiero saber cuántos días me dura el stock de cada producto al ri
 
 **Verificar:** `pytest -q`.
 
-### [ ] F05.3 · Productos más vendidos
+### [x] F05.3 · Productos más vendidos
 Como dueño, quiero ver el ranking de los productos que más salen, para priorizar qué nunca puede faltar.
 
 - `analizar_mas_vendidos(inventario, top: int = 5) -> pd.DataFrame`: salidas por `codigo`, suma de `cantidad`, `merge` con nombre y categoría, ordenado descendente, `head(top)`.

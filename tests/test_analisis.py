@@ -69,3 +69,23 @@ def test_cobertura_sin_movimientos_no_rompe():
     inventario = Inventario([Producto("A001", "Yerba", "almacen", 100.0, 10, 5)])
     tabla = analisis.analizar_cobertura(inventario)
     assert len(tabla) == 1
+
+
+# --- Indicador 3: más vendidos ---
+
+def test_mas_vendidos_ordenados():
+    ranking = analisis.analizar_mas_vendidos(_inventario())
+    assert list(ranking["codigo"]) == ["A001", "B001", "A002"]
+    assert list(ranking["vendido"]) == [30, 6, 3]
+
+
+def test_mas_vendidos_top_limita():
+    assert len(analisis.analizar_mas_vendidos(_inventario(), top=2)) == 2
+
+
+def test_sin_movimiento_detecta_stock_inmovilizado():
+    inventario = _inventario()
+    inventario.productos.append(Producto("Z001", "Nuevo", "varios", 10.0, 5, 1))
+    tabla = analisis.analizar_sin_movimiento(inventario)
+    assert list(tabla["codigo"]) == ["Z001"]
+    assert list(tabla["valor"]) == [50.0]
